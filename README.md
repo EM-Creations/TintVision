@@ -7,7 +7,7 @@ Java
 ## Team
 | Role       | Name                          |
 |------------|-------------------------------|
-| Programmer | Edward McKnight EngTech TMIET |
+| Programmer | Edward McKnight ICTTech TMIET |
 | Logo design | Lorna Baker                  |
 
 ## Disclaimer
