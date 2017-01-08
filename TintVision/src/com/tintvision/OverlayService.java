@@ -31,7 +31,7 @@ public class OverlayService extends Service {
     filter.getBackground().setAlpha(alpha); // Set the background's alpha
     
     WindowManager.LayoutParams params = new WindowManager.LayoutParams(
-        WindowManager.LayoutParams.WRAP_CONTENT,
+        WindowManager.LayoutParams.MATCH_PARENT, // Caused right hand side not to be in overlay when set to WRAP_CONTENT
         WindowManager.LayoutParams.WRAP_CONTENT,
         WindowManager.LayoutParams.TYPE_PHONE,
         WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
