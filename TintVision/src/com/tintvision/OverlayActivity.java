@@ -117,6 +117,7 @@ public class OverlayActivity extends Activity {
 		
 		// Start OverlayService which shows the overlay
 		startService(new Intent(getApplicationContext(), OverlayService.class));
+		startService(new Intent(getApplicationContext(), UnderlinerService.class));
 
 		// Trigger the initial hide() shortly after the activity has been
 		// created, to briefly hint to the user that UI controls

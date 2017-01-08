@@ -7,6 +7,5 @@ public class FilterView extends View {
 
 	public FilterView(Context context) {
 		super(context);
-		// TODO Auto-generated constructor stub
 	}
 }

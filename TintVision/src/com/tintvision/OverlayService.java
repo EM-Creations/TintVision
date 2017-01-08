@@ -19,35 +19,35 @@ public class OverlayService extends Service {
 		// Not used
 		return null;
 	}
-	
+
 	@Override public void onCreate() {
-    super.onCreate();
+		super.onCreate();
 
-    windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
+		windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
 
-    filter = new FilterView(this); // Create a new view
-    int alpha = 80; // Create alpha variable
-    filter.setBackgroundColor(Color.YELLOW); // Set the background colour to yellow
-    filter.getBackground().setAlpha(alpha); // Set the background's alpha
-    
-    WindowManager.LayoutParams params = new WindowManager.LayoutParams(
-        WindowManager.LayoutParams.MATCH_PARENT, // Caused right hand side not to be in overlay when set to WRAP_CONTENT
-        WindowManager.LayoutParams.WRAP_CONTENT,
-        WindowManager.LayoutParams.TYPE_PHONE,
-        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-        PixelFormat.TRANSLUCENT);
+		int alpha = 80; // Create alpha variable
+		filter = new FilterView(this); // Create a new view
+		filter.setBackgroundColor(Color.YELLOW); // Set the background colour to yellow
+		filter.getBackground().setAlpha(alpha); // Set the background's alpha
 
-    params.gravity = Gravity.TOP | Gravity.START;
-    params.x = 0;
-    params.y = 100;
+		WindowManager.LayoutParams params = new WindowManager.LayoutParams(
+				WindowManager.LayoutParams.MATCH_PARENT, // Caused right hand side not to be in overlay when set to WRAP_CONTENT
+				WindowManager.LayoutParams.WRAP_CONTENT,
+				WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY,
+				WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
+				PixelFormat.TRANSLUCENT);
 
-    windowManager.addView(filter, params);
-  }
+		params.gravity = Gravity.TOP | Gravity.START;
+		params.x = 0;
+		params.y = 100;
 
-  @Override
-  public void onDestroy() {
-    super.onDestroy();
-    if (filter != null) windowManager.removeView(filter); // If the filter exists, remove it
-  }
-	
+		windowManager.addView(filter, params);
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		if (filter != null) windowManager.removeView(filter); // If the filter exists, remove it
+	}
+
 }
