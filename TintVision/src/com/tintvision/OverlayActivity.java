@@ -115,7 +115,7 @@ public class OverlayActivity extends Activity {
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
 		
-		// Start OverlayService which shows the overlay
+		// Start OverlayService which shows the overlay and UnderlinerService which shows the underliner tool
 		startService(new Intent(getApplicationContext(), OverlayService.class));
 		startService(new Intent(getApplicationContext(), UnderlinerService.class));
 
