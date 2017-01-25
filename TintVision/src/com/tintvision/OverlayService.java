@@ -10,6 +10,12 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 
+/**
+ * Overlay service for TintVision
+ * 
+ * @author Edward McKnight (EM-Creations.co.uk) - UP608985
+ * @version 1.0
+ */
 public class OverlayService extends Service {
 	private WindowManager windowManager;
 	private View filter;

@@ -7,22 +7,44 @@
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="19" />
-    
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <activity android:name="OverlayActivity" android:label="@string/app_name" android:launchMode="standard">
+        <activity
+            android:name=".HomeActivity"
+            android:label="@string/app_name"
+            android:launchMode="standard" >
             <intent-filter>
-            	<action android:name="android.intent.action.MAIN" />
-            	<category android:name="android.intent.category.LAUNCHER" />
-        	</intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-        <service android:name="com.tintvision.OverlayService" android:label="@string/app_name" android:enabled="true"></service>
-        <service android:name="com.tintvision.UnderlinerService" android:label="@string/app_name" android:enabled="true"></service>
+
+        <service
+            android:name=".OverlayService"
+            android:enabled="true"
+            android:label="@string/app_name" >
+        </service>
+        <service
+            android:name=".UnderlinerService"
+            android:enabled="true"
+            android:label="@string/app_name" >
+        </service>
+
+        <activity
+            android:name=".OverlaySettingsActivity"
+            android:label="@string/title_activity_overlay_settings"
+            android:parentActivityName=".HomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.tintvision.OverlayActivity" />
+        </activity>
     </application>
 
 </manifest>

@@ -1,0 +1,45 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF"
+    android:orientation="vertical"
+    tools:context="com.tintvision.HomeActivity" >
+    
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="197dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
+        android:text="@string/app_name"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="@dimen/buttonText"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/osButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="0.40"
+        android:background="@drawable/custom_button"
+        android:text="@string/overlay_settings"
+        android:textSize="@dimen/buttonText"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/usButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="0.40"
+        android:text="@string/underliner_settings"
+        android:textSize="@dimen/buttonText"
+        android:textStyle="bold" />
+
+</LinearLayout>
