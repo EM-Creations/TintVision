@@ -1,8 +1,10 @@
 package com.tintvision;
 
 import com.tintvision.util.FilterView;
+import com.tintvision.util.Settings;
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.os.IBinder;
@@ -29,11 +31,15 @@ public class OverlayService extends Service {
 	@Override public void onCreate() {
 		super.onCreate();
 
+		// Restore settings
+		SharedPreferences settings = getSharedPreferences(Settings.SETTINGS_NAME, 0);
+		
 		windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
 
-		int alpha = 80; // Create alpha variable
+		int alpha = settings.getInt("overlayOpacity", 80); // Create alpha variable
 		filter = new FilterView(this); // Create a new view
-		filter.setBackgroundColor(Color.YELLOW); // Set the background colour to yellow
+		//filter.setBackgroundColor(Color.YELLOW); // Set the background colour to yellow
+		filter.setBackgroundColor(Color.parseColor(settings.getString("overlayColour", "#ffff00"))); // Set the background colour
 		filter.getBackground().setAlpha(alpha); // Set the background's alpha
 
 		WindowManager.LayoutParams params = new WindowManager.LayoutParams(
@@ -48,6 +54,15 @@ public class OverlayService extends Service {
 		params.y = 100;
 
 		windowManager.addView(filter, params);
+	}
+	
+	/**
+	 * Set the opacity for the overlay
+	 * 
+	 * @param opacity int
+	 */
+	public void setOpacity(int opacity) {
+		this.filter.getBackground().setAlpha(opacity); // Set the new opacity
 	}
 
 	@Override

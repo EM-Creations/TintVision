@@ -1,12 +1,19 @@
 package com.tintvision;
 
+import com.tintvision.util.Settings;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.TextView;
 
 /**
  * Overlay Settings activity for TintVision
@@ -15,13 +22,26 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
  * @version 1.0
  */
 public class OverlaySettingsActivity extends Activity {
-
+	SharedPreferences settings;
+	SharedPreferences.Editor editor;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_overlay_settings);
-
+		
+		// Restore settings
+		settings = getSharedPreferences(Settings.SETTINGS_NAME, 0);
+		editor = settings.edit();
+		
+		// Controls
 		final CompoundButton btnToggle = (CompoundButton) findViewById(R.id.overlayToggle);
+		final SeekBar barOpacity = (SeekBar) findViewById(R.id.opacityBar);
+		final TextView textColour = (TextView) findViewById(R.id.colourText);
+		
+		barOpacity.setProgress(settings.getInt("overlayOpacity", 80)); // Set the selected opacity
+		textColour.setText(settings.getString("overlayColour", "#ffff00")); // Set the selected colour
+		
 		btnToggle.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) { // If the toggle has been changed
@@ -32,6 +52,55 @@ public class OverlaySettingsActivity extends Activity {
 				}
 			}
 		});
+		
+		barOpacity.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+			@Override
+			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) { // If the setting has changed
+				editor.putInt("overlayOpacity", progress);
+				editor.commit(); // Save edits
+				
+				if (btnToggle.isChecked()) { // If the overlay is currently on
+					// Restart the overlay
+					stopService(new Intent(getApplicationContext(), OverlayService.class));
+					startService(new Intent(getApplicationContext(), OverlayService.class));
+				}
+			}
+
+			@Override
+			public void onStartTrackingTouch(SeekBar seekBar) {
+			}
+
+			@Override
+			public void onStopTrackingTouch(SeekBar seekBar) {
+			}
+		});
+		
+		textColour.addTextChangedListener(new TextWatcher() {
+
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				SharedPreferences.Editor editor = settings.edit();
+				editor.putString("overlayColour", "" + textColour.getText());
+				editor.commit(); // Save edits
+				
+				if (btnToggle.isChecked()) { // If the overlay is currently on
+					// Restart the overlay
+					stopService(new Intent(getApplicationContext(), OverlayService.class));
+					startService(new Intent(getApplicationContext(), OverlayService.class));
+				}
+			}
+			
+		});
+		
 	}
 
 	@Override
@@ -52,4 +121,5 @@ public class OverlaySettingsActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
 }
