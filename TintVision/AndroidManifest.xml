@@ -45,6 +45,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.tintvision.OverlayActivity" />
         </activity>
+        <activity
+            android:name=".UnderlinerSettingsActivity"
+            android:label="@string/title_activity_underliner_settings"
+            android:parentActivityName=".HomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.tintvision.HomeActivity" />
+        </activity>
     </application>
 
 </manifest>

@@ -13,5 +13,9 @@
     <string name="opacity">Opacity</string>
     <string name="colour">Colour</string>
     <string name="defaultColour">#ffff00</string>
+    <string name="title_activity_underliner_settings">Underliner Settings</string>
+    <string name="thickness">Thickness</string>
+    <string name="width">Width</string>
+    <string name="defaultUnderlinerColour">#000000</string>
 
 </resources>

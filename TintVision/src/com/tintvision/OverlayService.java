@@ -21,6 +21,7 @@ import android.view.WindowManager;
 public class OverlayService extends Service {
 	private WindowManager windowManager;
 	private View filter;
+	private SharedPreferences settings;
 
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -32,8 +33,8 @@ public class OverlayService extends Service {
 		super.onCreate();
 
 		// Restore settings
-		SharedPreferences settings = getSharedPreferences(Settings.SETTINGS_NAME, 0);
-		
+		settings = getSharedPreferences(Settings.SETTINGS_NAME, 0);
+
 		windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
 
 		int alpha = settings.getInt("overlayOpacity", 80); // Create alpha variable
@@ -54,15 +55,6 @@ public class OverlayService extends Service {
 		params.y = 100;
 
 		windowManager.addView(filter, params);
-	}
-	
-	/**
-	 * Set the opacity for the overlay
-	 * 
-	 * @param opacity int
-	 */
-	public void setOpacity(int opacity) {
-		this.filter.getBackground().setAlpha(opacity); // Set the new opacity
 	}
 
 	@Override

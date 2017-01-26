@@ -1,7 +1,9 @@
 package com.tintvision;
 
+import com.tintvision.util.Settings;
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.os.IBinder;
@@ -21,8 +23,9 @@ public class UnderlinerService extends Service implements OnTouchListener {
 	private WindowManager windowManager;
 	private WindowManager.LayoutParams params;
 	private View filter;
-	float lastTouchX, lastTouchY;
-	int activePointer;
+	private float lastTouchX, lastTouchY;
+	private int activePointer;
+	private SharedPreferences settings;
 
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -33,15 +36,18 @@ public class UnderlinerService extends Service implements OnTouchListener {
 	@Override public void onCreate() {
 		super.onCreate();
 
+		// Restore settings
+		settings = getSharedPreferences(Settings.SETTINGS_NAME, 0);
+
 		windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
 
 		filter = new View(this); // Create a new view
-		filter.setBackgroundColor(Color.BLACK); // Set the background colour to black
+		filter.setBackgroundColor(Color.parseColor(settings.getString("underlinerColour", "#000000"))); // Set the background colour
 		filter.setOnTouchListener(this); // Set up the on touch listener
 
 		params = new WindowManager.LayoutParams(
-				400,
-				10,
+				settings.getInt("underlinerWidth", 400),
+				settings.getInt("underlinerThickness", 10),
 				WindowManager.LayoutParams.TYPE_PHONE,
 				WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
 				PixelFormat.TRANSLUCENT);
@@ -59,6 +65,9 @@ public class UnderlinerService extends Service implements OnTouchListener {
 		if (filter != null) windowManager.removeView(filter); // If the filter exists, remove it
 	}
 
+	/**
+	 * Handle user dragging the underliner tool around the screen
+	 */
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 		//Toast.makeText(getBaseContext(),"onTouchEvent", Toast.LENGTH_SHORT).show();

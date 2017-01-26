@@ -16,7 +16,7 @@
         android:gravity="center_horizontal"
         android:text="@string/overlay_settings"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="@dimen/buttonText"
+        android:textSize="@dimen/titleText"
         android:textStyle="bold" />
 
     <Switch
@@ -67,9 +67,12 @@
 
     <EditText
         android:id="@+id/colourText"
-        android:layout_width="match_parent"
+        android:layout_width="369dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:ems="10"
+        android:inputType="text"
         android:text="@string/defaultColour" >
 
         <requestFocus />
