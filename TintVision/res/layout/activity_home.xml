@@ -38,6 +38,7 @@
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
         android:layout_weight="0.40"
+        android:background="@drawable/custom_button2"
         android:text="@string/underliner_settings"
         android:textSize="@dimen/buttonText"
         android:textStyle="bold" />
