@@ -1,0 +1,81 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF"
+    android:orientation="vertical"
+    tools:context="com.tintvision.HomeActivity" >
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
+        android:text="@string/overlay_settings"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="@dimen/titleText"
+        android:textStyle="bold" />
+
+    <Switch
+        android:id="@+id/overlayToggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="20dp"
+        android:checked="false"
+        android:text="@string/toggle"
+        android:textSize="@dimen/textMedium"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/opacityTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/opacity"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="@dimen/textMedium"
+        android:textStyle="bold" />
+
+    <SeekBar
+        android:id="@+id/opacityBar"
+        android:layout_width="358dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:indeterminate="false"
+        android:max="100"
+        android:progress="80" />
+
+    <TextView
+        android:id="@+id/colourTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/colour"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="@dimen/textMedium"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/colourText"
+        android:layout_width="369dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="@string/defaultColour" >
+
+        <requestFocus />
+    </EditText>
+
+</LinearLayout>
