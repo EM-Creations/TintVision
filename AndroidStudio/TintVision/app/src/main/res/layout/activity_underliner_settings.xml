@@ -40,37 +40,18 @@
         android:layout_column="0"
         android:layout_gravity="start"
         android:layout_marginTop="20dp"
-        android:layout_row="19"
+        android:layout_row="6"
         android:text="@string/colour"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textSize="@dimen/textMedium"
         android:textStyle="bold" />
-
-    <EditText
-        android:id="@+id/colourText"
-        android:layout_width="230dp"
-        android:layout_column="0"
-        android:layout_columnSpan="2"
-        android:layout_gravity="fill_horizontal"
-        android:layout_row="20"
-        android:ems="10"
-        android:inputType="text"
-        android:text="@string/defaultUnderlinerColour" >
-
-        <requestFocus />
-    </EditText>
-
-    <Space
-        android:layout_column="1"
-        android:layout_gravity="fill_vertical"
-        android:layout_row="23" />
 
     <TextView
         android:id="@+id/widthTextView"
         android:layout_column="0"
         android:layout_gravity="start|center_vertical"
         android:layout_marginTop="20dp"
-        android:layout_row="16"
+        android:layout_row="5"
         android:text="@string/width"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textSize="@dimen/textMedium"
@@ -93,7 +74,7 @@
         android:layout_column="1"
         android:layout_gravity="start|center_vertical"
         android:layout_marginTop="18dp"
-        android:layout_row="16"
+        android:layout_row="5"
         android:max="600"
         android:progress="400" />
 
@@ -106,5 +87,20 @@
         android:layout_row="4"
         android:max="20"
         android:progress="10" />
+
+    <Button
+        android:text="@string/pick_colour"
+        android:layout_width="match_parent"
+        android:layout_height="124dp"
+        android:id="@+id/buttonUnderlinerColour"
+        android:layout_row="7"
+        android:layout_columnSpan="2"
+        android:layout_column="0"
+        tools:text="@string/pick_colour" />
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="255dp"
+        android:minHeight="170dp" />
 
 </GridLayout>

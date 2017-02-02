@@ -39,7 +39,6 @@ public class OverlayService extends Service {
 
 		int alpha = settings.getInt("overlayOpacity", 80); // Create alpha variable
 		filter = new FilterView(this); // Create a new view
-		//filter.setBackgroundColor(Color.YELLOW); // Set the background colour to yellow
 		filter.setBackgroundColor(Color.parseColor(settings.getString("overlayColour", "#ffff00"))); // Set the background colour
 		filter.getBackground().setAlpha(alpha); // Set the background's alpha
 

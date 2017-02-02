@@ -1,16 +1,21 @@
 package com.tintvision;
 
+import com.flask.colorpicker.ColorPickerView;
+import com.flask.colorpicker.OnColorSelectedListener;
+import com.flask.colorpicker.builder.ColorPickerClickListener;
+import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import com.tintvision.util.Settings;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.TextView;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
@@ -36,16 +41,54 @@ public class UnderlinerSettingsActivity extends Activity {
 
 		// Controls
 		final CompoundButton btnToggle = (CompoundButton) findViewById(R.id.underlinerToggle);
-		final TextView textColour = (TextView) findViewById(R.id.colourText);
 		final SeekBar thicknessBar = (SeekBar) findViewById(R.id.thicknessSeekBar);
 		final SeekBar widthBar = (SeekBar) findViewById(R.id.widthSeekBar);
+		final Button btnColour = (Button) findViewById(R.id.buttonUnderlinerColour);
 
 		thicknessBar.setProgress(settings.getInt("underlinerThickness", 10)); // Set the selected thickness
 		widthBar.setProgress(settings.getInt("underlinerWidth", 400)); // Set the selected width
 		btnToggle.setChecked(settings.getBoolean("underlinerOn", false)); // Set the toggle
-		textColour.setText(settings.getString("underlinerColour", "#000000")); // Set the selected colour
 
 		// Listeners
+		btnColour.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				ColorPickerDialogBuilder
+						.with(UnderlinerSettingsActivity.this)
+						.setTitle("Pick colour")
+						.initialColor(Color.parseColor(settings.getString("underlinerColour", "#000000")))
+						.wheelType(ColorPickerView.WHEEL_TYPE.CIRCLE)
+						.density(9)
+						.setOnColorSelectedListener(new OnColorSelectedListener() {
+							@Override
+							public void onColorSelected(int selectedColor) {
+								//Toast.makeText(getApplicationContext(), "onColorSelected: 0x" + Integer.toHexString(selectedColor), Toast.LENGTH_SHORT).show();
+							}
+						})
+						.setPositiveButton("ok", new ColorPickerClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
+								SharedPreferences.Editor editor = settings.edit();
+								editor.putString("underlinerColour", "#" + Integer.toHexString(selectedColor));
+								editor.commit(); // Save edits
+
+								if (btnToggle.isChecked()) { // If the underliner is currently on
+									// Restart the underliner
+									stopService(new Intent(getApplicationContext(), UnderlinerService.class));
+									startService(new Intent(getApplicationContext(), UnderlinerService.class));
+								}
+							}
+						})
+						.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+							}
+						})
+						.build()
+						.show();
+			}
+		});
+
 		btnToggle.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) { // If the toggle has been changed
@@ -58,30 +101,6 @@ public class UnderlinerSettingsActivity extends Activity {
 				}
 				editor.commit(); // Save edits
 			}
-		});
-
-		textColour.addTextChangedListener(new TextWatcher() {
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-			}
-
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {
-			}
-
-			@Override
-			public void afterTextChanged(Editable s) {
-				SharedPreferences.Editor editor = settings.edit();
-				editor.putString("underlinerColour", "" + textColour.getText());
-				editor.commit(); // Save edits
-
-				if (btnToggle.isChecked()) { // If the underliner is currently on
-					// Restart the underliner
-					stopService(new Intent(getApplicationContext(), UnderlinerService.class));
-					startService(new Intent(getApplicationContext(), UnderlinerService.class));
-				}
-			}
-
 		});
 
 		thicknessBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {

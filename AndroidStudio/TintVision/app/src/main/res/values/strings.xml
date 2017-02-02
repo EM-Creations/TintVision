@@ -15,5 +15,6 @@
     <string name="thickness">Thickness</string>
     <string name="width">Width</string>
     <string name="defaultUnderlinerColour">#000000</string>
+    <string name="pick_colour">Pick Colour</string>
 
 </resources>

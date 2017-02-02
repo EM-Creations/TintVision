@@ -1,19 +1,24 @@
 package com.tintvision;
 
+import com.flask.colorpicker.ColorPickerView;
+import com.flask.colorpicker.OnColorSelectedListener;
+import com.flask.colorpicker.builder.ColorPickerClickListener;
+import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import com.tintvision.util.Settings;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
-import android.widget.TextView;
 
 /**
  * Overlay Settings activity for TintVision
@@ -37,13 +42,51 @@ public class OverlaySettingsActivity extends Activity {
 		// Controls
 		final CompoundButton btnToggle = (CompoundButton) findViewById(R.id.overlayToggle);
 		final SeekBar barOpacity = (SeekBar) findViewById(R.id.opacityBar);
-		final TextView textColour = (TextView) findViewById(R.id.colourText);
+		final Button btnColour = (Button) findViewById(R.id.buttonOverlayColour);
 
 		btnToggle.setChecked(settings.getBoolean("overlayOn", false)); // Set the toggle
 		barOpacity.setProgress(settings.getInt("overlayOpacity", 80)); // Set the selected opacity
-		textColour.setText(settings.getString("overlayColour", "#ffff00")); // Set the selected colour
 
 		// Listeners
+		btnColour.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				ColorPickerDialogBuilder
+						.with(OverlaySettingsActivity.this)
+						.setTitle("Pick colour")
+						.initialColor(Color.parseColor(settings.getString("overlayColour", "#ffff00")))
+						.wheelType(ColorPickerView.WHEEL_TYPE.CIRCLE)
+						.density(9)
+						.setOnColorSelectedListener(new OnColorSelectedListener() {
+							@Override
+							public void onColorSelected(int selectedColor) {
+								//Toast.makeText(getApplicationContext(), "onColorSelected: 0x" + Integer.toHexString(selectedColor), Toast.LENGTH_SHORT).show();
+							}
+						})
+						.setPositiveButton("ok", new ColorPickerClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
+								SharedPreferences.Editor editor = settings.edit();
+								editor.putString("overlayColour", "#" + Integer.toHexString(selectedColor));
+								editor.commit(); // Save edits
+
+								if (btnToggle.isChecked()) { // If the overlay is currently on
+									// Restart the overlay
+									stopService(new Intent(getApplicationContext(), OverlayService.class));
+									startService(new Intent(getApplicationContext(), OverlayService.class));
+								}
+							}
+						})
+						.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+							}
+						})
+						.build()
+						.show();
+			}
+		});
+
 		btnToggle.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) { // If the toggle has been changed
@@ -79,31 +122,6 @@ public class OverlaySettingsActivity extends Activity {
 			public void onStopTrackingTouch(SeekBar seekBar) {
 			}
 		});
-
-		textColour.addTextChangedListener(new TextWatcher() {
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-			}
-
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {
-			}
-
-			@Override
-			public void afterTextChanged(Editable s) {
-				SharedPreferences.Editor editor = settings.edit();
-				editor.putString("overlayColour", "" + textColour.getText());
-				editor.commit(); // Save edits
-
-				if (btnToggle.isChecked()) { // If the overlay is currently on
-					// Restart the overlay
-					stopService(new Intent(getApplicationContext(), OverlayService.class));
-					startService(new Intent(getApplicationContext(), OverlayService.class));
-				}
-			}
-
-		});
-
 	}
 
 	@Override

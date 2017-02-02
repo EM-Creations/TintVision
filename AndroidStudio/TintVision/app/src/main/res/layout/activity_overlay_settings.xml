@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:background="#FFF"
     android:orientation="vertical"
-    tools:context="com.tintvision.HomeActivity" >
+    tools:context="com.tintvision.HomeActivity"
+    android:weightSum="1">
 
     <TextView
         android:id="@+id/titleTextView"
@@ -65,17 +66,15 @@
         android:textSize="@dimen/textMedium"
         android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/colourText"
-        android:layout_width="369dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:ems="10"
-        android:inputType="text"
-        android:text="@string/defaultColour" >
-
-        <requestFocus />
-    </EditText>
+    <Button
+        android:text="@string/pick_colour"
+        android:layout_width="346dp"
+        android:layout_height="110dp"
+        android:id="@+id/buttonOverlayColour"
+        tools:text="@string/pick_colour"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp" />
 
 </LinearLayout>
