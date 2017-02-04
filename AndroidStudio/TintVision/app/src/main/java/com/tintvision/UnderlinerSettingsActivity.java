@@ -1,9 +1,11 @@
 package com.tintvision;
 
+// QuadFlask. (2017) color picker for android (Version 0.0.13) [Computer software]. Retrieved from https://github.com/QuadFlask/colorpicker
 import com.flask.colorpicker.ColorPickerView;
 import com.flask.colorpicker.OnColorSelectedListener;
 import com.flask.colorpicker.builder.ColorPickerClickListener;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
+// -- End of reference --
 import com.tintvision.util.Settings;
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -84,6 +86,7 @@ public class UnderlinerSettingsActivity extends Activity {
 							public void onClick(DialogInterface dialog, int which) {
 							}
 						})
+						.lightnessSliderOnly() // Only show the lightness slider
 						.build()
 						.show();
 			}
