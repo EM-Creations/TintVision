@@ -1,6 +1,7 @@
 package com.emcreations.tintvision;
 
 // QuadFlask. (2017) color picker for android (Version 0.0.13) [Computer software]. Retrieved from https://github.com/QuadFlask/colorpicker
+import com.emcreations.tintvision.util.CustomFont;
 import com.flask.colorpicker.ColorPickerView;
 import com.flask.colorpicker.OnColorSelectedListener;
 import com.flask.colorpicker.builder.ColorPickerClickListener;
@@ -21,6 +22,7 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.TextView;
 
 /**
  * Underliner settings activity for TintVision
@@ -46,10 +48,23 @@ public class UnderlinerSettingsActivity extends Activity {
 		final SeekBar thicknessBar = (SeekBar) findViewById(R.id.thicknessSeekBar);
 		final SeekBar widthBar = (SeekBar) findViewById(R.id.widthSeekBar);
 		final Button btnColour = (Button) findViewById(R.id.buttonUnderlinerColour);
+		final TextView titleText = (TextView) findViewById(R.id.titleTextView);
+		final TextView colourText = (TextView) findViewById(R.id.colourTextView);
+		final TextView thicknessText = (TextView) findViewById(R.id.thicknessTextView);
+		final TextView widthText = (TextView) findViewById(R.id.widthTextView);
 
 		thicknessBar.setProgress(settings.getInt("underlinerThickness", 10)); // Set the selected thickness
 		widthBar.setProgress(settings.getInt("underlinerWidth", 400)); // Set the selected width
 		btnToggle.setChecked(settings.getBoolean("underlinerOn", false)); // Set the toggle
+
+		// Set font
+		CustomFont font = new CustomFont(getApplicationContext());
+		titleText.setTypeface(font.getBoldFont());
+		btnToggle.setTypeface(font.getRegularFont());
+		btnColour.setTypeface(font.getRegularFont());
+        colourText.setTypeface(font.getRegularFont());
+        thicknessText.setTypeface(font.getRegularFont());
+        widthText.setTypeface(font.getRegularFont());
 
 		// Listeners
 		btnColour.setOnClickListener(new View.OnClickListener() {

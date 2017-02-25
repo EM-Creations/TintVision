@@ -1,6 +1,7 @@
 package com.emcreations.tintvision;
 
 // QuadFlask. (2017) color picker for android (Version 0.0.13) [Computer software]. Retrieved from https://github.com/QuadFlask/colorpicker
+import com.emcreations.tintvision.util.CustomFont;
 import com.flask.colorpicker.ColorPickerView;
 import com.flask.colorpicker.OnColorSelectedListener;
 import com.flask.colorpicker.builder.ColorPickerClickListener;
@@ -21,10 +22,11 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.TextView;
 
 /**
  * Overlay Settings activity for TintVision
- * 
+ *
  * @author Edward McKnight (EM-Creations.co.uk) - UP608985
  * @version 1.0
  */
@@ -45,9 +47,20 @@ public class OverlaySettingsActivity extends Activity {
 		final CompoundButton btnToggle = (CompoundButton) findViewById(R.id.overlayToggle);
 		final SeekBar barOpacity = (SeekBar) findViewById(R.id.opacityBar);
 		final Button btnColour = (Button) findViewById(R.id.buttonOverlayColour);
+		final TextView titleText = (TextView) findViewById(R.id.titleTextView);
+        final TextView opacityText = (TextView) findViewById(R.id.opacityTextView);
+        final TextView colourText = (TextView) findViewById(R.id.colourTextView);
 
 		btnToggle.setChecked(settings.getBoolean("overlayOn", false)); // Set the toggle
 		barOpacity.setProgress(settings.getInt("overlayOpacity", 80)); // Set the selected opacity
+
+		// Set font
+		CustomFont font = new CustomFont(getApplicationContext());
+		titleText.setTypeface(font.getBoldFont());
+		btnToggle.setTypeface(font.getRegularFont());
+        opacityText.setTypeface(font.getRegularFont());
+        colourText.setTypeface(font.getRegularFont());
+        btnColour.setTypeface(font.getRegularFont());
 
 		// Listeners
 		btnColour.setOnClickListener(new View.OnClickListener() {

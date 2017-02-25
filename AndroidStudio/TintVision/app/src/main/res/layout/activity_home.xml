@@ -3,13 +3,13 @@
     android:id="@+id/LinearLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFF"
+    android:background="#9EBBCC"
     android:orientation="vertical"
-    tools:context="com.tintvision.HomeActivity" >
+    tools:context="com.emcreations.tintvision.HomeActivity" >
     
     <TextView
         android:id="@+id/titleTextView"
-        android:layout_width="197dp"
+        android:layout_width="355dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
@@ -29,7 +29,8 @@
         android:background="@drawable/custom_button"
         android:text="@string/overlay_settings"
         android:textSize="@dimen/buttonText"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="@color/yellow_text" />
 
     <Button
         android:id="@+id/usButton"

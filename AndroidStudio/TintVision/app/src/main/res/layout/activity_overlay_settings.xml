@@ -3,14 +3,14 @@
     android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFF"
+    android:background="#9EBBCC"
     android:orientation="vertical"
-    tools:context="com.tintvision.HomeActivity"
+    tools:context="com.emcreations.tintvision.HomeActivity"
     android:weightSum="1">
 
     <TextView
         android:id="@+id/titleTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
@@ -22,7 +22,7 @@
 
     <Switch
         android:id="@+id/overlayToggle"
-        android:layout_width="wrap_content"
+        android:layout_width="361dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginStart="14dp"
@@ -30,11 +30,12 @@
         android:checked="false"
         android:text="@string/toggle"
         android:textSize="@dimen/textMedium"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="@android:color/black" />
 
     <TextView
         android:id="@+id/opacityTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="138dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
@@ -42,7 +43,8 @@
         android:text="@string/opacity"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textSize="@dimen/textMedium"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="@android:color/black" />
 
     <SeekBar
         android:id="@+id/opacityBar"
@@ -52,11 +54,12 @@
         android:layout_marginStart="10dp"
         android:indeterminate="false"
         android:max="100"
-        android:progress="80" />
+        android:progress="80"
+        style="@android:style/Widget.SeekBar" />
 
     <TextView
         android:id="@+id/colourTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="129dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
@@ -64,7 +67,8 @@
         android:text="@string/colour"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textSize="@dimen/textMedium"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="@android:color/black" />
 
     <Button
         android:text="@string/pick_colour"

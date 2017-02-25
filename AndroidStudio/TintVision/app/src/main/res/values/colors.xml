@@ -2,4 +2,5 @@
     <color name="black_overlay">#66000000</color>
     <color name="blue_button">#0066FF</color>
     <color name="grey_button">#FFCCCC</color>
+    <color name="yellow_text">#ffff00</color>
 </resources>

@@ -1,6 +1,7 @@
 package com.emcreations.tintvision;
 
 import com.emcreations.tintvision.util.Settings;
+import com.emcreations.tintvision.util.CustomFont;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 
 /**
  * Home activity (startup) for TintVision
@@ -26,8 +28,16 @@ public class HomeActivity extends Activity {
 		// Restore settings
 		settings = getSharedPreferences(Settings.SETTINGS_NAME, 0);
 
+		// Controls
 		final Button btnOverlaySettings = (Button) findViewById(R.id.osButton);
 		final Button btnUnderlinerSettings = (Button) findViewById(R.id.usButton);
+		final TextView titleText = (TextView) findViewById(R.id.titleTextView);
+
+        // Set font
+        CustomFont font = new CustomFont(getApplicationContext());
+        titleText.setTypeface(font.getBoldFont());
+        btnOverlaySettings.setTypeface(font.getBoldFont());
+        btnUnderlinerSettings.setTypeface(font.getBoldFont());
 
 		// Get settings and turn on overlay and underliner if necessary
 		if (settings.getBoolean("overlayOn", false))

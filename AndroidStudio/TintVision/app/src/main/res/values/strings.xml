@@ -2,8 +2,8 @@
 <resources>
 
     <string name="app_name">TintVision</string>
-    <string name="overlay_settings">Overlay Settings</string>
-    <string name="underliner_settings">Underliner Settings</string>
+    <string name="overlay_settings">Overlay</string>
+    <string name="underliner_settings">Underliner</string>
     <string name="toggle">On / off</string>
     <string name="title_activity_overlay_settings">Overlay Settings</string>
     <string name="hello_world">Hello world!</string>
