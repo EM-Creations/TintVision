@@ -46,7 +46,7 @@ public class OverlayService extends Service {
 				WindowManager.LayoutParams.MATCH_PARENT, // Caused right hand side not to be in overlay when set to WRAP_CONTENT
 				WindowManager.LayoutParams.WRAP_CONTENT,
 				WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY,
-				WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
+				WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
 				PixelFormat.TRANSLUCENT);
 
 		params.gravity = Gravity.TOP | Gravity.START;
