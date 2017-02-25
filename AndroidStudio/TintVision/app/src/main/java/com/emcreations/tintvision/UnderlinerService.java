@@ -49,7 +49,7 @@ public class UnderlinerService extends Service implements OnTouchListener {
 				settings.getInt("underlinerWidth", 400),
 				settings.getInt("underlinerThickness", 10),
 				WindowManager.LayoutParams.TYPE_PHONE,
-				WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
+				WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
 				PixelFormat.TRANSLUCENT);
 
 		params.gravity = Gravity.TOP | Gravity.START;
