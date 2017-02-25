@@ -1,4 +1,4 @@
-package com.tintvision.util;
+package com.emcreations.tintvision.util;
 
 /**
  * Settings utility static class for TintVision

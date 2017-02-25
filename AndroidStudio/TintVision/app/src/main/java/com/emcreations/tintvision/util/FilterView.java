@@ -1,4 +1,4 @@
-package com.tintvision.util;
+package com.emcreations.tintvision.util;
 
 import android.content.Context;
 import android.view.View;

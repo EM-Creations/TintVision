@@ -1,6 +1,6 @@
-package com.tintvision;
+package com.emcreations.tintvision;
 
-import com.tintvision.util.Settings;
+import com.emcreations.tintvision.util.Settings;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;

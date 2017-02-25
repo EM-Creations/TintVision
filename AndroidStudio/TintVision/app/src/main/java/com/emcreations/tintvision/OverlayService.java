@@ -1,7 +1,7 @@
-package com.tintvision;
+package com.emcreations.tintvision;
 
-import com.tintvision.util.FilterView;
-import com.tintvision.util.Settings;
+import com.emcreations.tintvision.util.FilterView;
+import com.emcreations.tintvision.util.Settings;
 import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
