@@ -1,6 +1,6 @@
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/GridLayout1"
+    android:id="@+id/ScrollViewUnderliner"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:columnCount="2"
@@ -12,106 +12,110 @@
     android:background="#9EBBCC"
     tools:context="com.emcreations.tintvision.UnderlinerSettingsActivity" >
 
-    <TextView
-        android:id="@+id/titleTextView"
-        android:layout_column="0"
-        android:layout_columnSpan="2"
-        android:layout_gravity="start"
-        android:layout_row="0"
-        android:gravity="center_horizontal"
-        android:text="@string/underliner_settings"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="@dimen/titleText"
-        android:textStyle="bold"
-        android:textAlignment="center"
-        android:layout_width="match_parent" />
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <Switch
-        android:id="@+id/underlinerToggle"
-        android:layout_width="match_parent"
-        android:layout_column="0"
-        android:layout_columnSpan="2"
-        android:layout_gravity="start"
-        android:layout_marginTop="20dp"
-        android:layout_row="1"
-        android:text="@string/toggle"
-        android:textSize="@dimen/textMedium"
-        android:textStyle="bold"
-        android:textColor="@android:color/black" />
+            <TextView
+                android:id="@+id/titleTextView"
+                android:layout_column="0"
+                android:layout_columnSpan="2"
+                android:layout_gravity="start"
+                android:layout_row="0"
+                android:gravity="center_horizontal"
+                android:text="@string/underliner_settings"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:textSize="32sp" />
 
-    <TextView
-        android:id="@+id/colourTextView"
-        android:layout_column="0"
-        android:layout_gravity="start"
-        android:layout_marginTop="20dp"
-        android:layout_row="6"
-        android:text="@string/colour"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="@dimen/textMedium"
-        android:textStyle="bold"
-        android:textColor="@android:color/black" />
+            <Switch
+                android:id="@+id/underlinerToggle"
+                android:layout_width="match_parent"
+                android:layout_column="0"
+                android:layout_columnSpan="2"
+                android:layout_gravity="start"
+                android:layout_marginTop="20dp"
+                android:layout_row="1"
+                android:text="@string/toggle"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:textSize="28sp" />
 
-    <TextView
-        android:id="@+id/widthTextView"
-        android:layout_column="0"
-        android:layout_gravity="start|center_vertical"
-        android:layout_marginTop="20dp"
-        android:layout_row="5"
-        android:text="@string/width"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="@dimen/textMedium"
-        android:textStyle="bold"
-        android:textColor="@android:color/black" />
+            <TextView
+                android:id="@+id/thicknessTextView"
+                android:layout_column="0"
+                android:layout_gravity="start|top"
+                android:layout_marginTop="20dp"
+                android:layout_row="4"
+                android:text="@string/thickness"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:textSize="28sp" />
 
-    <TextView
-        android:id="@+id/thicknessTextView"
-        android:layout_column="0"
-        android:layout_gravity="start|top"
-        android:layout_marginTop="20dp"
-        android:layout_row="4"
-        android:text="@string/thickness"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="@dimen/textMedium"
-        android:textStyle="bold"
-        android:textColor="@android:color/black" />
+            <SeekBar
+                android:id="@+id/thicknessSeekBar"
+                android:layout_width="140dp"
+                android:layout_column="1"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginTop="18dp"
+                android:layout_row="4"
+                android:max="20"
+                android:progress="10"
+                style="@android:style/Widget.SeekBar"
+                android:layout_height="wrap_content" />
 
-    <SeekBar
-        android:id="@+id/widthSeekBar"
-        android:layout_width="140dp"
-        android:layout_column="1"
-        android:layout_gravity="start|center_vertical"
-        android:layout_marginTop="18dp"
-        android:layout_row="5"
-        android:max="600"
-        android:progress="400"
-        style="@android:style/Widget.SeekBar"
-        android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/widthTextView"
+                android:layout_column="0"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginTop="20dp"
+                android:layout_row="5"
+                android:text="@string/width"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:textSize="28sp" />
 
-    <Button
-        android:text="@string/pick_colour"
-        android:layout_width="match_parent"
-        android:layout_height="124dp"
-        android:id="@+id/buttonUnderlinerColour"
-        android:layout_row="7"
-        android:layout_columnSpan="2"
-        android:layout_column="0"
-        tools:text="@string/pick_colour" />
+            <SeekBar
+                android:id="@+id/widthSeekBar"
+                android:layout_width="140dp"
+                android:layout_column="1"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginTop="18dp"
+                android:layout_row="5"
+                android:max="600"
+                android:progress="400"
+                style="@android:style/Widget.SeekBar"
+                android:layout_height="wrap_content" />
 
-    <Space
-        android:layout_width="wrap_content"
-        android:layout_height="255dp"
-        android:minHeight="170dp" />
+            <TextView
+                android:id="@+id/colourTextView"
+                android:layout_column="0"
+                android:layout_gravity="start"
+                android:layout_marginTop="20dp"
+                android:layout_row="6"
+                android:text="@string/colour"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:textSize="28sp" />
 
-    <SeekBar
-        android:id="@+id/thicknessSeekBar"
-        android:layout_width="140dp"
-        android:layout_column="1"
-        android:layout_gravity="start|center_vertical"
-        android:layout_marginTop="18dp"
-        android:layout_row="4"
-        android:max="20"
-        android:progress="10"
-        style="@android:style/Widget.SeekBar"
-        android:layout_height="wrap_content" />
+            <Button
+                android:text="@string/pick_colour"
+                android:layout_width="match_parent"
+                android:layout_height="124dp"
+                android:id="@+id/buttonUnderlinerColour"
+                android:layout_row="7"
+                android:layout_columnSpan="2"
+                android:layout_column="0"
+                tools:text="@string/pick_colour" />
 
-</GridLayout>
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="255dp"
+                android:minHeight="170dp" />
+        </GridLayout>
+</ScrollView>
