@@ -39,7 +39,6 @@ public class OverlaySettingsActivity extends Activity {
     private String oldColour;
     private CompoundButton btnToggle;
 
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -63,7 +62,7 @@ public class OverlaySettingsActivity extends Activity {
 		barOpacity.setProgress(settings.getInt("overlayOpacity", 80)); // Set the selected opacity
 
 		// Set font
-		CustomFont font = new CustomFont(getApplicationContext());
+        CustomFont font = new CustomFont(getApplicationContext());
 		titleText.setTypeface(font.getBoldFont());
 		btnToggle.setTypeface(font.getRegularFont());
         opacityText.setTypeface(font.getRegularFont());
@@ -178,7 +177,7 @@ public class OverlaySettingsActivity extends Activity {
             this.oldColour = settings.getString("overlayColour", "#ffff00");
             AlertDialog alertDialog = new AlertDialog.Builder(OverlaySettingsActivity.this).create();
             alertDialog.setTitle("Reading test");
-            alertDialog.setMessage("Would you like to take a reading speed test?");
+            alertDialog.setMessage("Would you like to take a reading speed test (requires internet)?");
             alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
