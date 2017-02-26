@@ -9,10 +9,12 @@ import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 // -- End of reference --
 import com.emcreations.tintvision.util.Settings;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,6 +35,10 @@ import android.widget.TextView;
 public class OverlaySettingsActivity extends Activity {
 	private SharedPreferences settings;
 	private SharedPreferences.Editor editor;
+    private int oldOpacity;
+    private String oldColour;
+    private CompoundButton btnToggle;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +48,11 @@ public class OverlaySettingsActivity extends Activity {
 		// Restore settings
 		settings = getSharedPreferences(Settings.SETTINGS_NAME, 0);
 		editor = settings.edit();
+        oldOpacity = settings.getInt("overlayOpacity", 80);
+        oldColour = settings.getString("overlayColour", "#ffff00");
 
 		// Controls
-		final CompoundButton btnToggle = (CompoundButton) findViewById(R.id.overlayToggle);
+        btnToggle = (CompoundButton) findViewById(R.id.overlayToggle);
 		final SeekBar barOpacity = (SeekBar) findViewById(R.id.opacityBar);
 		final Button btnColour = (Button) findViewById(R.id.buttonOverlayColour);
 		final TextView titleText = (TextView) findViewById(R.id.titleTextView);
@@ -83,12 +91,13 @@ public class OverlaySettingsActivity extends Activity {
 							public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
 								SharedPreferences.Editor editor = settings.edit();
 								editor.putString("overlayColour", "#" + Integer.toHexString(selectedColor));
-								editor.commit(); // Save edits
+								editor.apply(); // Save edits
 
 								if (btnToggle.isChecked()) { // If the overlay is currently on
 									// Restart the overlay
 									stopService(new Intent(getApplicationContext(), OverlayService.class));
 									startService(new Intent(getApplicationContext(), OverlayService.class));
+                                    readingTestCheck();
 								}
 							}
 						})
@@ -109,11 +118,12 @@ public class OverlaySettingsActivity extends Activity {
 				if (btnToggle.isChecked()) { // If the toggle is now checked
 					editor.putBoolean("overlayOn", true);
 					startService(new Intent(getApplicationContext(), OverlayService.class)); // Start the overlay
+                    readingTestCheck();
 				} else { // If the toggle is now unchecked
 					editor.putBoolean("overlayOn", false);
 					stopService(new Intent(getApplicationContext(), OverlayService.class)); // Stop the overlay
 				}
-				editor.commit(); // Save edits
+				editor.apply(); // Save edits
 			}
 		});
 
@@ -127,6 +137,7 @@ public class OverlaySettingsActivity extends Activity {
 					// Restart the overlay
 					stopService(new Intent(getApplicationContext(), OverlayService.class));
 					startService(new Intent(getApplicationContext(), OverlayService.class));
+                    readingTestCheck();
 				}
 			}
 
@@ -149,14 +160,42 @@ public class OverlaySettingsActivity extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        return id == R.id.action_settings || super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Check if the user could take a reading test or not
+     */
+    private void readingTestCheck() {
+        // Check if the overlay's settings have changed
+        if ((this.oldOpacity != settings.getInt("overlayOpacity", 80) || !this.oldColour.equals(settings.getString("overlayColour", "#ffff00"))) && btnToggle.isChecked()) {
+            // Update the old values to the new ones
+            this.oldOpacity = settings.getInt("overlayOpacity", 80);
+            this.oldColour = settings.getString("overlayColour", "#ffff00");
+            AlertDialog alertDialog = new AlertDialog.Builder(OverlaySettingsActivity.this).create();
+            alertDialog.setTitle("Reading test");
+            alertDialog.setMessage("Would you like to take a reading speed test?");
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            // Open the reading test
+                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.em-creations.co.uk/apps/readingtest.html"));
+                            startActivity(browserIntent);
+                        }
+                    });
+            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.show();
+        }
+    }
 
 }
