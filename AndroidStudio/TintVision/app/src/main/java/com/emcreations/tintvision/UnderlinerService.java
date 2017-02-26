@@ -21,8 +21,8 @@ import android.view.WindowManager;
  */
 public class UnderlinerService extends Service implements OnTouchListener {
 	private WindowManager windowManager;
-	private WindowManager.LayoutParams params;
-	private View filter;
+	private WindowManager.LayoutParams underlinerParams, underlinerShadowParams;
+	private View underliner, underlinerShadow;
 	private float lastTouchX, lastTouchY;
 	private int activePointer;
 	private SharedPreferences settings;
@@ -41,28 +41,44 @@ public class UnderlinerService extends Service implements OnTouchListener {
 
 		windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
 
-		filter = new View(this); // Create a new view
-		filter.setBackgroundColor(Color.parseColor(settings.getString("underlinerColour", "#000000"))); // Set the background colour
-		filter.setOnTouchListener(this); // Set up the on touch listener
+		underliner = new View(this); // Create a new view
+		underlinerShadow = new View(this); // Create the view's shadow
+		underliner.setBackgroundColor(Color.parseColor(settings.getString("underlinerColour", "#000000"))); // Set the background colour
+		underlinerShadow.setAlpha(0); // Invisible shadow view
+		underlinerShadow.setOnTouchListener(this); // Set up the on touch listener
 
-		params = new WindowManager.LayoutParams(
+		underlinerParams = new WindowManager.LayoutParams(
 				settings.getInt("underlinerWidth", 400),
 				settings.getInt("underlinerThickness", 10),
 				WindowManager.LayoutParams.TYPE_PHONE,
 				WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
 				PixelFormat.TRANSLUCENT);
 
-		params.gravity = Gravity.TOP | Gravity.START;
-		params.x = 0;
-		params.y = 100;
+        // Draw underliner shadow 20px padded around the underliner
+        underlinerShadowParams = new WindowManager.LayoutParams(
+                settings.getInt("underlinerWidth", 400) + 40,
+                settings.getInt("underlinerThickness", 10) + 40,
+                WindowManager.LayoutParams.TYPE_PHONE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+                PixelFormat.TRANSLUCENT);
 
-		windowManager.addView(filter, params);
+		underlinerParams.gravity = Gravity.TOP | Gravity.START;
+		underlinerParams.x = 20;
+		underlinerParams.y = 100;
+        // Copy the underliner params settings to the underliner shadow
+        underlinerShadowParams.gravity = underlinerParams.gravity;
+        underlinerShadowParams.x = underlinerParams.x - 20;
+        underlinerShadowParams.y = underlinerParams.y - 20;
+
+        windowManager.addView(underliner, underlinerParams); // Add the underliner
+        windowManager.addView(underlinerShadow, underlinerShadowParams); // Add the underliner shadow
 	}
 
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		if (filter != null) windowManager.removeView(filter); // If the filter exists, remove it
+		if (underliner != null) windowManager.removeView(underliner); // If the underliner exists, remove it
+        if (underlinerShadow != null) windowManager.removeView(underlinerShadow); // If the underliner shadow exists, remove it
 	}
 
 	/**
@@ -70,78 +86,70 @@ public class UnderlinerService extends Service implements OnTouchListener {
 	 */
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
-		//Toast.makeText(getBaseContext(),"onTouchEvent", Toast.LENGTH_SHORT).show();
+		//Toast.makeText(getBaseContext(),"onTouchEvent shadow", Toast.LENGTH_SHORT).show();
 		//Log.d("mymsg", "TOUCH EVENT: X: " + event.getX() + " Y: " + event.getY());
 
 		switch (event.getActionMasked()) {
-		case MotionEvent.ACTION_DOWN: {
-			final int pointer = event.getActionIndex();
-			final float x = event.getX();
-			final float y = event.getY();
+            case MotionEvent.ACTION_DOWN: {
+                final int pointer = event.getActionIndex();
+                final float x = event.getX();
+                final float y = event.getY();
 
-			// Save start position
-			this.lastTouchX = x;
-			this.lastTouchY = y;
-			// Save the pointer's ID
-			activePointer = event.getPointerId(0);
-			break;
+                // Save start position
+                this.lastTouchX = x;
+                this.lastTouchY = y;
+                // Save the pointer's ID
+                activePointer = event.getPointerId(0);
+                break;
+            }
+
+            case MotionEvent.ACTION_MOVE: {
+                // Get the index of the active pointer and its position
+                final int pointerIndex = event.findPointerIndex(activePointer);
+
+                final float x = event.getX(pointerIndex);
+                final float y = event.getY(pointerIndex);
+
+                // Calculate distance moved
+                final float dX = x - this.lastTouchX;
+                final float dY = y - this.lastTouchY;
+
+                // Increment positions by the difference (dX and dY)
+                underlinerParams.x += dX;
+                underlinerParams.y += dY;
+                underlinerShadowParams.x += dX;
+                underlinerShadowParams.y += dY;
+                windowManager.updateViewLayout(underliner, underlinerParams);
+                windowManager.updateViewLayout(underlinerShadow, underlinerShadowParams);
+
+                // Save position
+                this.lastTouchX = x;
+                this.lastTouchY = y;
+                break;
+            }
+
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL: {
+                this.activePointer = MotionEvent.INVALID_POINTER_ID;
+                break;
+            }
+
+            case MotionEvent.ACTION_POINTER_UP: {
+                final int pointerIndex = event.getActionIndex();
+                final int pointerId = event.getPointerId(pointerIndex);
+
+                if (pointerId == activePointer) {
+                    // Choose new pointer and adjust
+                    final int newPointerIndex = pointerIndex == 0 ? 1 : 0;
+                    lastTouchX = event.getX(newPointerIndex);
+                    lastTouchY = event.getY(newPointerIndex);
+                    activePointer = event.getPointerId(newPointerIndex);
+                }
+
+                break;
+            }
 		}
 
-		case MotionEvent.ACTION_MOVE: {
-			// Get the index of the active pointer and its position
-			final int pointerIndex = event.findPointerIndex(activePointer);
-
-			final float x = event.getX(pointerIndex);
-			final float y = event.getY(pointerIndex);
-
-			// Calculate distance moved
-			final float dX = x - this.lastTouchX;
-			final float dY = y - this.lastTouchY;
-
-			// Increment positions by the difference (dX and dY)
-			params.x += dX;
-			params.y += dY;
-			windowManager.updateViewLayout(filter, params);
-
-			//invalidate();
-
-			// Save position
-			this.lastTouchX = x;
-			this.lastTouchY = y;
-			break;
-		}
-
-		case MotionEvent.ACTION_UP:
-		case MotionEvent.ACTION_CANCEL: {
-			this.activePointer = MotionEvent.INVALID_POINTER_ID;
-			break;
-		}
-
-		case MotionEvent.ACTION_POINTER_UP: {
-			final int pointerIndex = event.getActionIndex();
-			final int pointerId = event.getPointerId(pointerIndex);
-
-			if (pointerId == activePointer) {
-				// Choose new pointer and adjust
-				final int newPointerIndex = pointerIndex == 0 ? 1 : 0;
-				lastTouchX = event.getX(newPointerIndex);
-				lastTouchY = event.getY(newPointerIndex);
-				activePointer = event.getPointerId(newPointerIndex);
-			}
-
-			break;
-		}
-		}
-
-		// THIS IS WORKING!
-		/*
-		params.x += 10;
-		params.y += 10;
-		windowManager.updateViewLayout(filter, params);
-		if (event.getAction() == MotionEvent.ACTION_UP) {
-			Log.d("OverlayButton onTouch", "touched the button");
-			//stopSelf();
-		}*/
 		return true;
 	}
 

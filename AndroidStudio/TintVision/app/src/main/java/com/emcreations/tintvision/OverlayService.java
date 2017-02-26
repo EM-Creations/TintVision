@@ -1,6 +1,5 @@
 package com.emcreations.tintvision;
 
-import com.emcreations.tintvision.util.FilterView;
 import com.emcreations.tintvision.util.Settings;
 import android.app.Service;
 import android.content.Intent;
@@ -38,7 +37,7 @@ public class OverlayService extends Service {
 		windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
 
 		int alpha = settings.getInt("overlayOpacity", 80); // Create alpha variable
-		filter = new FilterView(this); // Create a new view
+		filter = new View(this); // Create a new view
 		filter.setBackgroundColor(Color.parseColor(settings.getString("overlayColour", "#ffff00"))); // Set the background colour
 		filter.getBackground().setAlpha(alpha); // Set the background's alpha
 
