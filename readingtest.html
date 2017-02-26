@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>TintVision: Reading Test</title>
+		<script type="text/javascript">
+			window.onload = function () { // Once the window loads
+				var sec = 0;
+				var timer = null;
+
+				function pad(val) {
+					return val > 9 ? val : "0" + val;
+				}
+				
+				// Start the timer
+				document.getElementById("startButton").addEventListener("click", function () {
+					timer = setInterval(function () {
+						document.getElementById("seconds").innerHTML = pad(++sec % 60);
+						document.getElementById("minutes").innerHTML = pad(parseInt(sec / 60, 10));
+					}, 1000);
+				});
+
+				// Stop the timer
+				document.getElementById("stopButton").addEventListener("click", function () {
+					clearInterval(timer);
+				});
+			}
+		</script>
+		<style>
+			body {
+				margin: 1%;
+				font-family: Arial;
+			}
+		
+			/* Timer */
+			div#timer {
+				font-weight: bold;
+				margin: 0 auto;
+				width: 50%;
+				font-size: 16pt;
+			}
+			
+			/* Controls */
+			div#controls>input[type=button] {
+				width: 30%;
+				height: 40px;
+				margin: 1% 1% 1% 0;
+			}
+			
+			/* Instructions */
+			div#instructions {
+				font-weight: bold;
+				font-style: italic;
+				margin: 2% 0;
+			}
+			
+			/* Content */
+			div#content>ul>li {
+				margin: 1% 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="timer">
+			<span id="minutes">00</span>:<span id="seconds">00</span>
+		</div>
+		<div id="controls">
+			<input id="startButton" type="button" value="Start"/>
+			<input id="stopButton" type="button" value="Stop"/>
+		</div>
+		<div id="instructions">
+			When you are ready press the start button, read the text below, then click the stop button to see your reading speed.
+		</div>
+		<div id="content">
+			<ul>
+			<li>When rabbits ‘binky’, this is an expression of joy. They will run, jump into the air, twist their body and flick their feet.</li>
+			<li>Rabbits are affectionate social animals that enjoy the company of other rabbits. They will perform allogrooming where two individuals will simultaneously groom each other.</li>
+			<li>Although typically very quiet, rabbits do communicate vocally, with varying types of vocalisations communicating different messages, e.g. low humming when running around an individual is a signal of affection.</li>
+			<li>Rabbits stand upright on their hind legs to give themselves a better vantage point to look for predators. They alert other rabbits to the presence of danger by thumping their hind legs.</li>
+			<li>For the last 60 years rabbits have been increasingly commonly kept as pets in the UK and other countries. In the last ten years there has been an especially big increase in the UK making them the nation’s third most popular furry pet. In 2010 about 1 million rabbits were kept as pets. However, before taking on the commitment of caring for a rabbit as a pet consideration should be given to whether its physical and emotional needs can be met. Properly caring for an animal as a pet can have significant time and cost implications. For example caring for a rabbit is likely to cost more than £3,000 over the course of its lifetime.</li>
+		</ul>
+		Source: https://onekind.org/animal/rabbit/ (2017)
+		</div>
+	</body>
+</html>
