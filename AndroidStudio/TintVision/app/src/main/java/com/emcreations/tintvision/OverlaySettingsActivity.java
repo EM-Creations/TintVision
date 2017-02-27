@@ -38,6 +38,7 @@ public class OverlaySettingsActivity extends Activity {
     private int oldOpacity;
     private String oldColour;
     private CompoundButton btnToggle;
+	private boolean alertActive = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -130,14 +131,7 @@ public class OverlaySettingsActivity extends Activity {
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) { // If the setting has changed
 				editor.putInt("overlayOpacity", progress);
-				editor.commit(); // Save edits
-
-				if (btnToggle.isChecked()) { // If the overlay is currently on
-					// Restart the overlay
-					stopService(new Intent(getApplicationContext(), OverlayService.class));
-					startService(new Intent(getApplicationContext(), OverlayService.class));
-                    readingTestCheck();
-				}
+				editor.apply(); // Save edits
 			}
 
 			@Override
@@ -146,6 +140,12 @@ public class OverlaySettingsActivity extends Activity {
 
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
+                if (btnToggle.isChecked()) { // If the overlay is currently on
+                    // Restart the overlay
+                    stopService(new Intent(getApplicationContext(), OverlayService.class));
+                    startService(new Intent(getApplicationContext(), OverlayService.class));
+                }
+                readingTestCheck();
 			}
 		});
 	}
@@ -171,7 +171,8 @@ public class OverlaySettingsActivity extends Activity {
      */
     private void readingTestCheck() {
         // Check if the overlay's settings have changed
-        if ((this.oldOpacity != settings.getInt("overlayOpacity", 80) || !this.oldColour.equals(settings.getString("overlayColour", "#ffff00"))) && btnToggle.isChecked()) {
+        if ((this.oldOpacity != settings.getInt("overlayOpacity", 80) || !this.oldColour.equals(settings.getString("overlayColour", "#ffff00"))) && btnToggle.isChecked() && !alertActive) {
+			alertActive = true;
             // Update the old values to the new ones
             this.oldOpacity = settings.getInt("overlayOpacity", 80);
             this.oldColour = settings.getString("overlayColour", "#ffff00");
@@ -181,6 +182,7 @@ public class OverlaySettingsActivity extends Activity {
             alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
+							alertActive = false;
                             dialog.dismiss();
                             // Open the reading test
                             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.em-creations.co.uk/apps/readingtest.html"));
@@ -190,6 +192,7 @@ public class OverlaySettingsActivity extends Activity {
             alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
+							alertActive = false;
                             dialog.dismiss();
                         }
                     });

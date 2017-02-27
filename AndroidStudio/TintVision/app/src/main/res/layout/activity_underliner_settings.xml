@@ -113,9 +113,5 @@
                 android:layout_column="0"
                 tools:text="@string/pick_colour" />
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="255dp"
-                android:minHeight="170dp" />
         </GridLayout>
 </ScrollView>
