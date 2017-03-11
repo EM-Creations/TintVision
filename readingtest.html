@@ -23,6 +23,14 @@
 				document.getElementById("stopButton").addEventListener("click", function () {
 					clearInterval(timer);
 				});
+				
+				// Reset the timer
+				document.getElementById("resetButton").addEventListener("click", function () {
+					clearInterval(timer);
+					document.getElementById("seconds").innerHTML = "00";
+					document.getElementById("minutes").innerHTML = "00";
+					sec = 0;
+				});
 			}
 		</script>
 		<style>
@@ -42,9 +50,9 @@
 			/* Controls */
 			div#controls>input[type=button] {
 				margin: 1% 1% 1% 0;
-				width: 40%;
+				width: 30%;
 				padding: 1%;
-				font-size: 5vw;
+				font-size: 6vw;
 			}
 			
 			/* Instructions */
@@ -52,13 +60,13 @@
 				font-weight: bold;
 				font-style: italic;
 				margin: 2% 0;
-				font-size: 5vw;
+				font-size: 4vw;
 			}
 			
 			/* Content */
 			div#content>ul>li {
 				margin: 1% 0;
-				font-size: 5vw;
+				font-size: 4vw;
 			}
 		</style>
 	</head>
@@ -69,16 +77,18 @@
 		<div id="controls">
 			<input id="startButton" type="button" value="Start"/>
 			<input id="stopButton" type="button" value="Stop"/>
+			<input id="resetButton" type="button" value="Reset"/>
 		</div>
 		<div id="instructions">
-			When you are ready press the start button, read the text below, then tap the stop button to see your reading speed.
+			When you are ready tap the start button, read the text below, then tap the stop button to see your reading speed.
 		</div>
 		<div id="content">
 			<ul>
 				<li>Although typically very quiet, rabbits do communicate vocally, with varying types of vocalisations communicating different messages, e.g. low humming when running around an individual is a signal of affection.</li>
 				<li>Rabbits stand upright on their hind legs to give themselves a better vantage point to look for predators. They alert other rabbits to the presence of danger by thumping their hind legs.</li>
+				<li>The scientific name for rabbits is "Leporidae", meaning: those that resemble hares.</li>
 			</ul>
-			Source: https://onekind.org/animal/rabbit/ (2017)
+			Source: <a href="https://onekind.org/animal/rabbit/" target="_blank">https://onekind.org/animal/rabbit/ (2017)</a>
 		</div>
 	</body>
 </html>
