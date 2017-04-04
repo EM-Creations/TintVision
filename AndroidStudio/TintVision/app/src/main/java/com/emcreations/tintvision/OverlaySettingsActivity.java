@@ -27,9 +27,12 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 /**
- * Overlay Settings activity for TintVision
+ * Overlay Settings activity for TintVision, handles the settings for the overlay
  *
  * @author Edward McKnight (EM-Creations.co.uk) - UP608985
+ * @see OverlayService
+ * @see UnderlinerSettingsActivity
+ * @since 2017
  * @version 1.0
  */
 public class OverlaySettingsActivity extends Activity {
@@ -40,6 +43,11 @@ public class OverlaySettingsActivity extends Activity {
     private CompoundButton btnToggle;
 	private boolean alertActive = false;
 
+	/**
+	 * On create method, which is run when the activity is first started
+	 *
+	 * @param savedInstanceState The saved instance of the activity
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -150,6 +158,12 @@ public class OverlaySettingsActivity extends Activity {
 		});
 	}
 
+	/**
+	 * onCreateOptionsMenu
+	 *
+	 * @param menu the options menu
+	 * @return boolean
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -157,6 +171,12 @@ public class OverlaySettingsActivity extends Activity {
 		return true;
 	}
 
+    /**
+     * onOptionsItemSelected
+     *
+     * @param item the menu item
+     * @return boolean
+     */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -199,5 +219,4 @@ public class OverlaySettingsActivity extends Activity {
             alertDialog.show();
         }
     }
-
 }

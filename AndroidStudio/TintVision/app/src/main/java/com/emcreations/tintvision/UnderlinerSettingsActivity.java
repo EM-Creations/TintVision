@@ -25,15 +25,23 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 /**
- * Underliner settings activity for TintVision
+ * Underliner settings activity for TintVision, handles the settings for the underliner tool
  * 
  * @author Edward McKnight (EM-Creations.co.uk) - UP608985
+ * @see UnderlinerService
+ * @see OverlaySettingsActivity
+ * @since 2017
  * @version 1.0
  */
 public class UnderlinerSettingsActivity extends Activity {
 	private SharedPreferences settings;
 	private SharedPreferences.Editor editor;
 
+	/**
+	 * On create method, which is run when the activity is first started
+	 *
+	 * @param savedInstanceState The saved instance of the activity
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -168,6 +176,12 @@ public class UnderlinerSettingsActivity extends Activity {
 		});
 	}
 
+	/**
+	 * onCreateOptionsMenu
+	 *
+	 * @param menu the options menu
+	 * @return boolean
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -175,6 +189,12 @@ public class UnderlinerSettingsActivity extends Activity {
 		return true;
 	}
 
+	/**
+	 * onOptionsItemSelected
+	 *
+	 * @param item the menu item
+	 * @return boolean
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will

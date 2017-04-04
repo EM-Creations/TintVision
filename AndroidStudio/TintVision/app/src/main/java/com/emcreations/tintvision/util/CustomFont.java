@@ -7,6 +7,7 @@ import android.graphics.Typeface;
  * CustomFont static class
  *
  * @author Edward McKnight (EM-Creations.co.uk) - UP608985
+ * @since 2017
  * @version 1.0
  */
 public final class CustomFont {
@@ -22,7 +23,7 @@ public final class CustomFont {
     /**
      * Constructor
      *
-     * @param context Context
+     * @param context the context for the font
      */
     public CustomFont(Context context) {
         // Set the values
@@ -33,7 +34,7 @@ public final class CustomFont {
     /**
      * Get the regular font
      *
-     * @return Typeface
+     * @return the regular font Typeface object
      */
     public Typeface getRegularFont() {
         return regularFont;
@@ -42,7 +43,7 @@ public final class CustomFont {
     /**
      * Get the bold font
      *
-     * @return Typeface
+     * @return the bold font Typeface object
      */
     public Typeface getBoldFont() {
         return boldFont;

@@ -14,25 +14,37 @@ import android.view.View.OnTouchListener;
 import android.view.WindowManager;
 
 /**
- * Underliner service for TintVision
+ * Underliner service for TintVision, handles the creation, destruction and movement of the underliner tool
  * 
  * @author Edward McKnight (EM-Creations.co.uk) - UP608985
+ * @see OverlayService
+ * @see UnderlinerSettingsActivity
+ * @since 2017
  * @version 1.0
  */
 public class UnderlinerService extends Service implements OnTouchListener {
 	private WindowManager windowManager;
 	private WindowManager.LayoutParams underlinerParams, underlinerShadowParams;
 	private View underliner, underlinerShadow;
-	private float lastTouchX, lastTouchY;
+	private float lastTouchX, lastTouchY, dX, dY;
 	private int activePointer;
 	private SharedPreferences settings;
 
+    /**
+     * onBind
+     *
+     * @param intent
+     * @return null as the method isn't used
+     */
 	@Override
 	public IBinder onBind(Intent intent) {
 		// Not used
 		return null;
 	}
 
+    /**
+     * On create method, which is run when the service is first started
+     */
 	@Override public void onCreate() {
 		super.onCreate();
 
@@ -74,6 +86,9 @@ public class UnderlinerService extends Service implements OnTouchListener {
         windowManager.addView(underlinerShadow, underlinerShadowParams); // Add the underliner shadow
 	}
 
+    /**
+     * onDestroy method, which is run when the service is stopped
+     */
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
@@ -81,9 +96,13 @@ public class UnderlinerService extends Service implements OnTouchListener {
         if (underlinerShadow != null) windowManager.removeView(underlinerShadow); // If the underliner shadow exists, remove it
 	}
 
-	/**
-	 * Handle user dragging the underliner tool around the screen
-	 */
+    /**
+     * Handle user dragging the underliner tool around the screen
+     *
+     * @param v the view to handle the touch event for
+     * @param event the event object for this touch
+     * @return boolean
+     */
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 		//Toast.makeText(getBaseContext(),"onTouchEvent shadow", Toast.LENGTH_SHORT).show();

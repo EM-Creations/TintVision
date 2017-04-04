@@ -15,11 +15,18 @@ import android.widget.TextView;
  * Home activity (startup) for TintVision
  * 
  * @author Edward McKnight (EM-Creations.co.uk) - UP608985
+ * @see Settings
+ * @since 2017
  * @version 1.0
  */
 public class HomeActivity extends Activity {
 	private SharedPreferences settings;
 
+	/**
+	 * On create method, which is run when the activity is first started
+	 *
+	 * @param savedInstanceState The saved instance of the activity
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -63,6 +70,11 @@ public class HomeActivity extends Activity {
 		});
 	}
 
+	/**
+	 * onPostCreate method, which is run after the activity has been created
+	 *
+	 * @param savedInstanceState The saved instance of the activity
+	 */
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);

@@ -12,9 +12,12 @@ import android.view.View;
 import android.view.WindowManager;
 
 /**
- * Overlay service for TintVision
+ * Overlay service for TintVision, handles the creation and destruction of the overlay
  * 
  * @author Edward McKnight (EM-Creations.co.uk) - UP608985
+ * @see OverlaySettingsActivity
+ * @see UnderlinerService
+ * @since 2017
  * @version 1.0
  */
 public class OverlayService extends Service {
@@ -22,12 +25,21 @@ public class OverlayService extends Service {
 	private View filter;
 	private SharedPreferences settings;
 
+	/**
+	 * onBind
+	 *
+	 * @param intent
+	 * @return null as the method isn't used
+	 */
 	@Override
 	public IBinder onBind(Intent intent) {
 		// Not used
 		return null;
 	}
 
+	/**
+	 * On create method, which is run when the service is first started
+	 */
 	@Override public void onCreate() {
 		super.onCreate();
 
@@ -55,6 +67,9 @@ public class OverlayService extends Service {
 		windowManager.addView(filter, params);
 	}
 
+	/**
+	 * onDestroy method, which is run when the service is stopped
+	 */
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
