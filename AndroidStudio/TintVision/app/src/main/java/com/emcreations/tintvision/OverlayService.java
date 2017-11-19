@@ -36,7 +36,7 @@ public class OverlayService extends Service {
 		// Not used
 		return null;
 	}
-
+	// TODO: Fix problem where currently app is crashing on target device emulator
 	/**
 	 * On create method, which is run when the service is first started
 	 */
