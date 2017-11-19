@@ -8,7 +8,7 @@ Java
 | Role       | Name                          |
 |------------|-------------------------------|
 | Programmer | Edward McKnight ICTTech TMIET |
-| Logo design | Lorna Baker                  |
+| Logo design | Lorna Bunnie                 |
 
 ## Information
 This repository contains two top level directories: "AndroidStudio/" and "Eclipse/". The final app can be found under "AndroidStudio/", the "Eclipse/" directory contains the Android project up to the point where it was converted to AndroidStudio.
