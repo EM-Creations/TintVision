@@ -1,8 +1,13 @@
+import android.graphics.Typeface;
 
 import com.emcreations.tintvision.util.CustomFont;
-import org.junit.Test;
 
-import static android.support.test.InstrumentationRegistry.getContext;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.shadows.ShadowApplication;
+
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertThat;
@@ -14,22 +19,32 @@ import static org.junit.Assert.assertThat;
  * @since 2017
  * @version 1.0
  */
+@RunWith(RobolectricTestRunner.class)
 public class CustomFontTest {
-    private final CustomFont cF = new CustomFont(getContext());
+    private CustomFont cF;
+
+    @Before
+    public void setup() {
+        cF = new CustomFont(ShadowApplication.getInstance().getApplicationContext());
+    }
 
     /**
      * Tests that the regular font return isn't null
      */
     @Test
-    public void customfont_RegularNotNull() {
-        assertThat(cF.getRegularFont(), not(equalTo(null)));
+    public void regularFont_NotNullSuccess() {
+        Typeface result = cF.getRegularFont();
+
+        assertThat(result, not(equalTo(null)));
     }
 
     /**
      * Tests that the bold font return isn't null
      */
     @Test
-    public void customfont_BoldNotNull() {
-        assertThat(cF.getBoldFont(), not(equalTo(null)));
+    public void boldFont_NotNullSuccess() {
+        Typeface result = cF.getBoldFont();
+
+        assertThat(result, not(equalTo(null)));
     }
 }

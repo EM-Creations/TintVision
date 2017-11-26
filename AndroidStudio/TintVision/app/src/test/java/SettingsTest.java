@@ -17,7 +17,7 @@ public class SettingsTest {
      * Tests that the settings name is correct
      */
     @Test
-    public void settings_CorrectSettingsName() {
+    public void settingsName_CorrectSuccess() {
         assertThat(Settings.SETTINGS_NAME, is("TintVisionSettings"));
     }
 }
