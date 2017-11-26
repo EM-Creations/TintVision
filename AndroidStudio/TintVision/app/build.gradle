@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 25
     buildToolsVersion '26.0.2'
 
     configurations.all {
@@ -11,7 +11,7 @@ android {
     defaultConfig {
         applicationId "com.emcreations.tintvision"
         minSdkVersion 14
-        targetSdkVersion 27
+        targetSdkVersion 25
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -32,7 +32,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     testCompile 'com.android.support.test:runner:1.0.1'
     testImplementation "org.robolectric:robolectric:3.5.1"
-    compile 'com.android.support:support-v4:27.0.1'
-    compile 'com.android.support:appcompat-v7:27.0.1'
+    compile 'com.android.support:support-v4:25.4.0'
+    compile 'com.android.support:appcompat-v7:25.4.0'
     compile 'com.github.QuadFlask:colorpicker:0.0.13'
 }

@@ -1,6 +1,5 @@
 package com.emcreations.tintvision;
 
-import com.emcreations.tintvision.util.Settings;
 import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,6 +11,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.WindowManager;
+
+import com.emcreations.tintvision.util.Settings;
 
 /**
  * Underliner service for TintVision, handles the creation, destruction and movement of the underliner tool
@@ -51,39 +52,41 @@ public class UnderlinerService extends Service implements OnTouchListener {
 		// Restore settings
 		settings = getSharedPreferences(Settings.SETTINGS_NAME, 0);
 
-		windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
+        if (settings.getBoolean("canDrawOverlays", false)) { // If we have permission
+            windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
 
-		underliner = new View(this); // Create a new view
-		underlinerShadow = new View(this); // Create the view's shadow
-		underliner.setBackgroundColor(Color.parseColor(settings.getString("underlinerColour", "#000000"))); // Set the background colour
-		underlinerShadow.setAlpha(0); // Invisible shadow view
-		underlinerShadow.setOnTouchListener(this); // Set up the on touch listener
+            underliner = new View(this); // Create a new view
+            underlinerShadow = new View(this); // Create the view's shadow
+            underliner.setBackgroundColor(Color.parseColor(settings.getString("underlinerColour", "#000000"))); // Set the background colour
+            underlinerShadow.setAlpha(0); // Invisible shadow view
+            underlinerShadow.setOnTouchListener(this); // Set up the on touch listener
 
-		underlinerParams = new WindowManager.LayoutParams(
-				settings.getInt("underlinerWidth", 400),
-				settings.getInt("underlinerThickness", 10),
-				WindowManager.LayoutParams.TYPE_PHONE,
-				WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
-				PixelFormat.TRANSLUCENT);
+            underlinerParams = new WindowManager.LayoutParams(
+                    settings.getInt("underlinerWidth", 400),
+                    settings.getInt("underlinerThickness", 10),
+                    WindowManager.LayoutParams.TYPE_PHONE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+                    PixelFormat.TRANSLUCENT);
 
-        // Draw underliner shadow 20px padded around the underliner
-        underlinerShadowParams = new WindowManager.LayoutParams(
-                settings.getInt("underlinerWidth", 400) + 40,
-                settings.getInt("underlinerThickness", 10) + 40,
-                WindowManager.LayoutParams.TYPE_PHONE,
-                WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
-                PixelFormat.TRANSLUCENT);
+            // Draw underliner shadow 20px padded around the underliner
+            underlinerShadowParams = new WindowManager.LayoutParams(
+                    settings.getInt("underlinerWidth", 400) + 40,
+                    settings.getInt("underlinerThickness", 10) + 40,
+                    WindowManager.LayoutParams.TYPE_PHONE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+                    PixelFormat.TRANSLUCENT);
 
-		underlinerParams.gravity = Gravity.TOP | Gravity.START;
-		underlinerParams.x = 20;
-		underlinerParams.y = 100;
-        // Copy the underliner params settings to the underliner shadow
-        underlinerShadowParams.gravity = underlinerParams.gravity;
-        underlinerShadowParams.x = underlinerParams.x - 20;
-        underlinerShadowParams.y = underlinerParams.y - 20;
+            underlinerParams.gravity = Gravity.TOP | Gravity.START;
+            underlinerParams.x = 20;
+            underlinerParams.y = 100;
+            // Copy the underliner params settings to the underliner shadow
+            underlinerShadowParams.gravity = underlinerParams.gravity;
+            underlinerShadowParams.x = underlinerParams.x - 20;
+            underlinerShadowParams.y = underlinerParams.y - 20;
 
-        windowManager.addView(underliner, underlinerParams); // Add the underliner
-        windowManager.addView(underlinerShadow, underlinerShadowParams); // Add the underliner shadow
+            windowManager.addView(underliner, underlinerParams); // Add the underliner
+            windowManager.addView(underlinerShadow, underlinerShadowParams); // Add the underliner shadow
+        }
 	}
 
     /**

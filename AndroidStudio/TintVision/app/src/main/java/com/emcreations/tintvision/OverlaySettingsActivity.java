@@ -60,12 +60,12 @@ public class OverlaySettingsActivity extends Activity {
         oldColour = settings.getString("overlayColour", "#ffff00");
 
 		// Controls
-        btnToggle = findViewById(R.id.overlayToggle);
-		final SeekBar barOpacity = findViewById(R.id.opacityBar);
-		final Button btnColour = findViewById(R.id.buttonOverlayColour);
-		final TextView titleText = findViewById(R.id.titleTextView);
-        final TextView opacityText = findViewById(R.id.opacityTextView);
-        final TextView colourText = findViewById(R.id.colourTextView);
+        btnToggle = (CompoundButton) findViewById(R.id.overlayToggle);
+		final SeekBar barOpacity = (SeekBar) findViewById(R.id.opacityBar);
+		final Button btnColour = (Button) findViewById(R.id.buttonOverlayColour);
+		final TextView titleText = (TextView) findViewById(R.id.titleTextView);
+        final TextView opacityText = (TextView) findViewById(R.id.opacityTextView);
+        final TextView colourText = (TextView) findViewById(R.id.colourTextView);
 
 		btnToggle.setChecked(settings.getBoolean("overlayOn", false)); // Set the toggle
 		barOpacity.setProgress(settings.getInt("overlayOpacity", 80)); // Set the selected opacity

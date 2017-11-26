@@ -36,7 +36,7 @@ public class OverlayService extends Service {
 		// Not used
 		return null;
 	}
-	// TODO: Fix problem where currently app is crashing on target device emulator
+
 	/**
 	 * On create method, which is run when the service is first started
 	 */
@@ -46,25 +46,27 @@ public class OverlayService extends Service {
 		// Restore settings
 		settings = getSharedPreferences(Settings.SETTINGS_NAME, 0);
 
-		windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
+		if (settings.getBoolean("canDrawOverlays", false)) { // If we have permission
+			windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
 
-		int alpha = settings.getInt("overlayOpacity", 80); // Create alpha variable
-		filter = new View(this); // Create a new view
-		filter.setBackgroundColor(Color.parseColor(settings.getString("overlayColour", "#ffff00"))); // Set the background colour
-		filter.getBackground().setAlpha(alpha); // Set the background's alpha
+			int alpha = settings.getInt("overlayOpacity", 80); // Create alpha variable
+			filter = new View(this); // Create a new view
+			filter.setBackgroundColor(Color.parseColor(settings.getString("overlayColour", "#ffff00"))); // Set the background colour
+			filter.getBackground().setAlpha(alpha); // Set the background's alpha
 
-		WindowManager.LayoutParams params = new WindowManager.LayoutParams(
-				WindowManager.LayoutParams.MATCH_PARENT, // Caused right hand side not to be in overlay when set to WRAP_CONTENT
-				WindowManager.LayoutParams.WRAP_CONTENT,
-				WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY,
-				WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
-				PixelFormat.TRANSLUCENT);
+			WindowManager.LayoutParams params = new WindowManager.LayoutParams(
+					WindowManager.LayoutParams.MATCH_PARENT, // Caused right hand side not to be in overlay when set to WRAP_CONTENT
+					WindowManager.LayoutParams.WRAP_CONTENT,
+					WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY,
+					WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
+					PixelFormat.TRANSLUCENT);
 
-		params.gravity = Gravity.TOP | Gravity.START;
-		params.x = 0;
-		params.y = 100;
+			params.gravity = Gravity.TOP | Gravity.START;
+			params.x = 0;
+			params.y = 100;
 
-		windowManager.addView(filter, params);
+			windowManager.addView(filter, params);
+		}
 	}
 
 	/**
