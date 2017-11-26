@@ -70,14 +70,4 @@ public class HomeActivity extends Activity {
 		});
 	}
 
-	/**
-	 * onPostCreate method, which is run after the activity has been created
-	 *
-	 * @param savedInstanceState The saved instance of the activity
-	 */
-	@Override
-	protected void onPostCreate(Bundle savedInstanceState) {
-		super.onPostCreate(savedInstanceState);
-	}
-
 }

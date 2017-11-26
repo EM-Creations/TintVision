@@ -1,10 +1,8 @@
-import android.test.AndroidTestCase;
 
 import com.emcreations.tintvision.util.CustomFont;
-
-import org.junit.Ignore;
 import org.junit.Test;
 
+import static android.support.test.InstrumentationRegistry.getContext;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertThat;
@@ -16,13 +14,12 @@ import static org.junit.Assert.assertThat;
  * @since 2017
  * @version 1.0
  */
-public class CustomFontTest extends AndroidTestCase {
-    private CustomFont cF = new CustomFont(getContext());
+public class CustomFontTest {
+    private final CustomFont cF = new CustomFont(getContext());
 
     /**
      * Tests that the regular font return isn't null
      */
-    @Ignore
     @Test
     public void customfont_RegularNotNull() {
         assertThat(cF.getRegularFont(), not(equalTo(null)));
@@ -31,7 +28,6 @@ public class CustomFontTest extends AndroidTestCase {
     /**
      * Tests that the bold font return isn't null
      */
-    @Ignore
     @Test
     public void customfont_BoldNotNull() {
         assertThat(cF.getBoldFont(), not(equalTo(null)));

@@ -14,11 +14,11 @@ public final class CustomFont {
     /**
      * Regular font
      */
-    private Typeface regularFont;
+    private final Typeface regularFont;
     /**
      * Bold font
      */
-    private Typeface boldFont;
+    private final Typeface boldFont;
 
     /**
      * Constructor

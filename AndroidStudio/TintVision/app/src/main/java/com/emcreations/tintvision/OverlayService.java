@@ -28,7 +28,7 @@ public class OverlayService extends Service {
 	/**
 	 * onBind
 	 *
-	 * @param intent
+	 * @param intent Intent
 	 * @return null as the method isn't used
 	 */
 	@Override

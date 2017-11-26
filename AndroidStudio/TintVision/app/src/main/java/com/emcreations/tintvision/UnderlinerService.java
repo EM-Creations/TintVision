@@ -33,7 +33,7 @@ public class UnderlinerService extends Service implements OnTouchListener {
     /**
      * onBind
      *
-     * @param intent
+     * @param intent Intent
      * @return null as the method isn't used
      */
 	@Override
@@ -149,6 +149,7 @@ public class UnderlinerService extends Service implements OnTouchListener {
 
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL: {
+                v.performClick();
                 this.activePointer = MotionEvent.INVALID_POINTER_ID;
                 break;
             }
