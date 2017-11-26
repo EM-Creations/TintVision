@@ -36,9 +36,9 @@ public class HomeActivity extends Activity {
 		settings = getSharedPreferences(Settings.SETTINGS_NAME, 0);
 
 		// Controls
-		final Button btnOverlaySettings = (Button) findViewById(R.id.osButton);
-		final Button btnUnderlinerSettings = (Button) findViewById(R.id.usButton);
-		final TextView titleText = (TextView) findViewById(R.id.titleTextView);
+		final Button btnOverlaySettings = findViewById(R.id.osButton);
+		final Button btnUnderlinerSettings = findViewById(R.id.usButton);
+		final TextView titleText = findViewById(R.id.titleTextView);
 
         // Set font
         CustomFont font = new CustomFont(getApplicationContext());

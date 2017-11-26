@@ -52,14 +52,14 @@ public class UnderlinerSettingsActivity extends Activity {
 		editor = settings.edit();
 
 		// Controls
-		final CompoundButton btnToggle = (CompoundButton) findViewById(R.id.underlinerToggle);
-		final SeekBar thicknessBar = (SeekBar) findViewById(R.id.thicknessSeekBar);
-		final SeekBar widthBar = (SeekBar) findViewById(R.id.widthSeekBar);
-		final Button btnColour = (Button) findViewById(R.id.buttonUnderlinerColour);
-		final TextView titleText = (TextView) findViewById(R.id.titleTextView);
-		final TextView colourText = (TextView) findViewById(R.id.colourTextView);
-		final TextView thicknessText = (TextView) findViewById(R.id.thicknessTextView);
-		final TextView widthText = (TextView) findViewById(R.id.widthTextView);
+		final CompoundButton btnToggle = findViewById(R.id.underlinerToggle);
+		final SeekBar thicknessBar = findViewById(R.id.thicknessSeekBar);
+		final SeekBar widthBar = findViewById(R.id.widthSeekBar);
+		final Button btnColour = findViewById(R.id.buttonUnderlinerColour);
+		final TextView titleText = findViewById(R.id.titleTextView);
+		final TextView colourText = findViewById(R.id.colourTextView);
+		final TextView thicknessText = findViewById(R.id.thicknessTextView);
+		final TextView widthText = findViewById(R.id.widthTextView);
 
 		thicknessBar.setProgress(settings.getInt("underlinerThickness", 10)); // Set the selected thickness
 		widthBar.setProgress(settings.getInt("underlinerWidth", 400)); // Set the selected width
@@ -95,7 +95,7 @@ public class UnderlinerSettingsActivity extends Activity {
 							public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
 								SharedPreferences.Editor editor = settings.edit();
 								editor.putString("underlinerColour", "#" + Integer.toHexString(selectedColor));
-								editor.commit(); // Save edits
+								editor.apply(); // Save edits
 
 								if (btnToggle.isChecked()) { // If the underliner is currently on
 									// Restart the underliner
@@ -125,7 +125,7 @@ public class UnderlinerSettingsActivity extends Activity {
 					editor.putBoolean("underlinerOn", false);
 					stopService(new Intent(getApplicationContext(), UnderlinerService.class)); // Stop the underliner
 				}
-				editor.commit(); // Save edits
+				editor.apply(); // Save edits
 			}
 		});
 
