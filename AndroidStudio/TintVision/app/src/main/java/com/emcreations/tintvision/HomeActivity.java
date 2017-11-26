@@ -85,23 +85,43 @@ public class HomeActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Check whether we have permission to draw overlays
+	 */
 	@TargetApi(23)
 	private void checkDrawOverlayPermission() {
 		if (!android.provider.Settings.canDrawOverlays(getApplicationContext())) { // If we don't have permission to draw overlays
 			Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
 					Uri.parse("package:" + getPackageName()));
 			startActivityForResult(intent, REQUEST_CODE); // Request permission
+		} else {
+			setCanDrawOverlay(true);
 		}
 	}
 
+	/**
+	 * Call back after asking for permission to draw overlays
+	 *
+	 * @param requestCode int
+	 * @param resultCode int
+	 * @param data Intent
+	 */
 	@TargetApi(23)
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode,  Intent data) {
 		if (requestCode == REQUEST_CODE) { // Request codes match
-			editor.putBoolean("canDrawOverlays",
-					android.provider.Settings.canDrawOverlays(getApplicationContext()));
-			editor.apply();
+			setCanDrawOverlay(android.provider.Settings.canDrawOverlays(getApplicationContext()));
 		}
+	}
+
+	/**
+	 * Set whether or not the overlays can be drawn
+	 *
+	 * @param b Boolean
+	 */
+	private void setCanDrawOverlay(boolean b) {
+		editor.putBoolean("canDrawOverlays", b);
+		editor.apply();
 	}
 
 }
