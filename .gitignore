@@ -35,11 +35,11 @@ captures/
 
 # Intellij
 *.iml
-AndroidStudio/TintVision/.idea/workspace.xml
+.idea/workspace.xml
+.idea/libraries/
 
 # Keystore files
 *.jks
 
 # Recommenders
 .recommenders
-/AndroidStudio/TintVision/.idea/workspace.xml
