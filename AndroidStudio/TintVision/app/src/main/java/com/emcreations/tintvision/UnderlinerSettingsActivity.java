@@ -80,7 +80,7 @@ public class UnderlinerSettingsActivity extends Activity {
 			public void onClick(View v) {
 				ColorPickerDialogBuilder
 						.with(UnderlinerSettingsActivity.this)
-						.setTitle("Pick colour")
+						.setTitle(getResources().getString(R.string.pick_colour))
 						.initialColor(Color.parseColor(settings.getString("underlinerColour", "#000000")))
 						.wheelType(ColorPickerView.WHEEL_TYPE.CIRCLE)
 						.density(9)
@@ -90,7 +90,7 @@ public class UnderlinerSettingsActivity extends Activity {
 								//Toast.makeText(getApplicationContext(), "onColorSelected: 0x" + Integer.toHexString(selectedColor), Toast.LENGTH_SHORT).show();
 							}
 						})
-						.setPositiveButton("ok", new ColorPickerClickListener() {
+						.setPositiveButton(getResources().getString(R.string.answer_ok), new ColorPickerClickListener() {
 							@Override
 							public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
 								SharedPreferences.Editor editor = settings.edit();
@@ -104,7 +104,7 @@ public class UnderlinerSettingsActivity extends Activity {
 								}
 							}
 						})
-						.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+						.setNegativeButton(getResources().getString(R.string.answer_cancel), new DialogInterface.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
 							}

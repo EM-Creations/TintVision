@@ -42,6 +42,7 @@ public class OverlaySettingsActivity extends Activity {
     private String oldColour;
     private CompoundButton btnToggle;
 	private boolean alertActive = false;
+	private String readingTestURL = "http://www.em-creations.co.uk/apps/readingtest.html";
 
 	/**
 	 * On create method, which is run when the activity is first started
@@ -84,7 +85,7 @@ public class OverlaySettingsActivity extends Activity {
 			public void onClick(View v) {
 				ColorPickerDialogBuilder
 						.with(OverlaySettingsActivity.this)
-						.setTitle("Pick colour")
+						.setTitle(getResources().getString(R.string.pick_colour))
 						.initialColor(Color.parseColor(settings.getString("overlayColour", "#ffff00")))
 						.wheelType(ColorPickerView.WHEEL_TYPE.CIRCLE)
 						.density(9)
@@ -94,7 +95,7 @@ public class OverlaySettingsActivity extends Activity {
 								//Toast.makeText(getApplicationContext(), "onColorSelected: 0x" + Integer.toHexString(selectedColor), Toast.LENGTH_SHORT).show();
 							}
 						})
-						.setPositiveButton("ok", new ColorPickerClickListener() {
+						.setPositiveButton(getResources().getString(R.string.answer_ok), new ColorPickerClickListener() {
 							@Override
 							public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
 								SharedPreferences.Editor editor = settings.edit();
@@ -109,7 +110,7 @@ public class OverlaySettingsActivity extends Activity {
 								}
 							}
 						})
-						.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+						.setNegativeButton(getResources().getString(R.string.answer_cancel), new DialogInterface.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
 							}
@@ -197,19 +198,19 @@ public class OverlaySettingsActivity extends Activity {
             this.oldOpacity = settings.getInt("overlayOpacity", 80);
             this.oldColour = settings.getString("overlayColour", "#ffff00");
             AlertDialog alertDialog = new AlertDialog.Builder(OverlaySettingsActivity.this).create();
-            alertDialog.setTitle("Reading test");
-            alertDialog.setMessage("Would you like to take a reading speed test (requires internet)?");
-            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes",
+            alertDialog.setTitle(getResources().getText(R.string.reading_test_title));
+            alertDialog.setMessage(getResources().getText(R.string.reading_test_question));
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getResources().getText(R.string.answer_yes),
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
 							alertActive = false;
                             dialog.dismiss();
                             // Open the reading test
-                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.em-creations.co.uk/apps/readingtest.html"));
+                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(readingTestURL));
                             startActivity(browserIntent);
                         }
                     });
-            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No",
+            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getResources().getText(R.string.answer_no),
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
 							alertActive = false;

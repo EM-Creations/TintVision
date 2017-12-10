@@ -39,8 +39,7 @@ public class UnderlinerService extends Service implements OnTouchListener {
      */
 	@Override
 	public IBinder onBind(Intent intent) {
-		// Not used
-		return null;
+		return null; // Not used
 	}
 
     /**
@@ -108,9 +107,6 @@ public class UnderlinerService extends Service implements OnTouchListener {
      */
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
-		//Toast.makeText(getBaseContext(),"onTouchEvent shadow", Toast.LENGTH_SHORT).show();
-		//Log.d("mymsg", "TOUCH EVENT: X: " + event.getX() + " Y: " + event.getY());
-
 		switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN: {
                 final int pointer = event.getActionIndex();
@@ -175,5 +171,4 @@ public class UnderlinerService extends Service implements OnTouchListener {
 
 		return true;
 	}
-
 }

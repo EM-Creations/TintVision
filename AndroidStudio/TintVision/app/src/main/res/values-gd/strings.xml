@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="overlay_settings">Còmhdach</string>
+    <string name="underliner_settings">Fo-sgrìobhadh</string>
+    <string name="toggle">Air / dheth</string>
+    <string name="title_activity_overlay_settings">Roghainnean còmhdach</string>
+    <string name="action_settings">Roghainnean</string>
+    <string name="opacity">Dòchasachd</string>
+    <string name="colour">Dath</string>
+    <string name="title_activity_underliner_settings">Roghainnean fo-bhualaidh</string>
+    <string name="thickness">Tòc</string>
+    <string name="width">Leud</string>
+    <string name="pick_colour">Tagh dath</string>
+    <string name="reading_test_title">Deuchainn Leughaidh</string>
+    <string name="reading_test_question">A bheil thu ag iarraidh deuchainn luaths leughaidh a ghabhail (a dhìth air an eadar-lìon)?</string>
+    <string name="answer_yes">Tha</string>
+    <string name="answer_ok">ceart</string>
+    <string name="answer_cancel">sguir dheth</string>
+    <string name="answer_no">Chan eil</string>
+</resources>

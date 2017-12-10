@@ -6,7 +6,6 @@
     <string name="underliner_settings">Underliner</string>
     <string name="toggle">On / off</string>
     <string name="title_activity_overlay_settings">Overlay Settings</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="opacity">Opacity</string>
     <string name="colour">Colour</string>
@@ -16,5 +15,10 @@
     <string name="width">Width</string>
     <string name="defaultUnderlinerColour">#000000</string>
     <string name="pick_colour">Pick Colour</string>
-
+    <string name="reading_test_title">Reading Test</string>
+    <string name="reading_test_question">Would you like to take a reading speed test (requires internet)?</string>
+    <string name="answer_yes">Yes</string>
+    <string name="answer_ok">ok</string>
+    <string name="answer_cancel">cancel</string>
+    <string name="answer_no">No</string>
 </resources>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="overlay_settings">Überlagerung</string>
+    <string name="underliner_settings">Unterstreichen</string>
+    <string name="toggle">Umschalten</string>
+    <string name="title_activity_overlay_settings">Überlagerungseinstellungen</string>
+    <string name="action_settings">Einstellungen</string>
+    <string name="opacity">Opazität</string>
+    <string name="colour">Farbe</string>
+    <string name="title_activity_underliner_settings">Unterstreichen-Einstellungen</string>
+    <string name="thickness">Dicke</string>
+    <string name="width">Breite</string>
+    <string name="pick_colour">Wählen Sie Farbe</string>
+    <string name="reading_test_title">Lesetest</string>
+    <string name="reading_test_question">Möchten Sie einen Lesetest machen (benötigt Internet)?</string>
+    <string name="answer_yes">Ja</string>
+    <string name="answer_ok">ok</string>
+    <string name="answer_cancel">stornieren</string>
+    <string name="answer_no">Nein</string>
+</resources>
