@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="overlay_settings">Recouvrir</string>
+    <string name="underliner_settings">Souligner</string>
+    <string name="toggle">Basculer</string>
+    <string name="title_activity_overlay_settings">Paramètres de superposition</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="opacity">Opacité</string>
+    <string name="colour">Couleur</string>
+    <string name="title_activity_underliner_settings">Paramètres de l'underliner</string>
+    <string name="thickness">Épaisseur</string>
+    <string name="width">Largeur</string>
+    <string name="pick_colour">Choisir la couleur</string>
+    <string name="reading_test_title">Test de lecture</string>
+    <string name="reading_test_question">Souhaitez-vous passer un test de vitesse de lecture (nécessite Internet)?</string>
+    <string name="answer_yes">Oui</string>
+    <string name="answer_ok">ok</string>
+    <string name="answer_cancel">annuler</string>
+    <string name="answer_no">Non</string>
+</resources>

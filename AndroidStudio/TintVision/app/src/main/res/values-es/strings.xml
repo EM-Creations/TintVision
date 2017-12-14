@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="overlay_settings">Cubrir</string>
+    <string name="underliner_settings">Subrayar</string>
+    <string name="toggle">Cazonete</string>
+    <string name="title_activity_overlay_settings">Configuración de superposición</string>
+    <string name="action_settings">Configuraciones</string>
+    <string name="opacity">Opacidad</string>
+    <string name="colour">Color</string>
+    <string name="title_activity_underliner_settings">Configuración de subrayar</string>
+    <string name="thickness">Espesor</string>
+    <string name="width">Anchura</string>
+    <string name="pick_colour">Elegir color</string>
+    <string name="reading_test_title">Prueba de lectura</string>
+    <string name="reading_test_question">¿Le gustaría tomar una prueba de velocidad de lectura (requiere internet)?</string>
+    <string name="answer_yes">Sí</string>
+    <string name="answer_ok">ok</string>
+    <string name="answer_cancel">cancelar</string>
+    <string name="answer_no">No</string>
+</resources>
