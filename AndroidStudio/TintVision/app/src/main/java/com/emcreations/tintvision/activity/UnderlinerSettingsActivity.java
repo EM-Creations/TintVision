@@ -1,6 +1,8 @@
-package com.emcreations.tintvision;
+package com.emcreations.tintvision.activity;
 
 // QuadFlask. (2017) color picker for android (Version 0.0.13) [Computer software]. Retrieved from https://github.com/QuadFlask/colorpicker
+import com.emcreations.tintvision.R;
+import com.emcreations.tintvision.service.UnderlinerService;
 import com.emcreations.tintvision.util.CustomFont;
 import com.flask.colorpicker.ColorPickerView;
 import com.flask.colorpicker.OnColorSelectedListener;

@@ -1,5 +1,10 @@
-package com.emcreations.tintvision;
+package com.emcreations.tintvision.activity;
 
+import com.emcreations.tintvision.R;
+import com.emcreations.tintvision.activity.OverlaySettingsActivity;
+import com.emcreations.tintvision.activity.UnderlinerSettingsActivity;
+import com.emcreations.tintvision.service.OverlayService;
+import com.emcreations.tintvision.service.UnderlinerService;
 import com.emcreations.tintvision.util.Settings;
 import com.emcreations.tintvision.util.CustomFont;
 

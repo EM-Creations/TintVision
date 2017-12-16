@@ -1,5 +1,6 @@
-package com.emcreations.tintvision;
+package com.emcreations.tintvision.service;
 
+import com.emcreations.tintvision.activity.OverlaySettingsActivity;
 import com.emcreations.tintvision.util.Settings;
 import android.app.Service;
 import android.content.Intent;

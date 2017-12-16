@@ -1,4 +1,4 @@
-package com.emcreations.tintvision;
+package com.emcreations.tintvision.service;
 
 import android.app.Service;
 import android.content.Intent;
@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.WindowManager;
 
+import com.emcreations.tintvision.activity.UnderlinerSettingsActivity;
 import com.emcreations.tintvision.util.Settings;
 
 /**

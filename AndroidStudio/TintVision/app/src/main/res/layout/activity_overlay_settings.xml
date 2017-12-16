@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="#9EBBCC"
     android:orientation="vertical"
-    tools:context="com.emcreations.tintvision.HomeActivity"
+    tools:context="com.emcreations.tintvision.activity.HomeActivity"
     android:weightSum="1">
 
         <LinearLayout
