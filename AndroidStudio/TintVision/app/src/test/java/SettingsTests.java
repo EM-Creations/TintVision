@@ -11,7 +11,7 @@ import static org.junit.Assert.assertThat;
  * @since 2017
  * @version 1.0
  */
-public class SettingsTest {
+public class SettingsTests {
 
     /**
      * Tests that the settings name is correct

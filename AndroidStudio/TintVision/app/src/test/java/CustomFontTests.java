@@ -20,7 +20,7 @@ import static org.junit.Assert.assertThat;
  * @version 1.0
  */
 @RunWith(RobolectricTestRunner.class)
-public class CustomFontTest {
+public class CustomFontTests {
     private CustomFont cF;
 
     @Before
