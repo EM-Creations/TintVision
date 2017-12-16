@@ -3,7 +3,7 @@ package com.emcreations.tintvision.util;
 /**
  * Settings utility static class for TintVision
  * 
- * @author Edward McKnight (EM-Creations.co.uk) - UP608985
+ * @author Edward McKnight (EM-Creations.co.uk)
  * @since 2017
  * @version 1.0
  */

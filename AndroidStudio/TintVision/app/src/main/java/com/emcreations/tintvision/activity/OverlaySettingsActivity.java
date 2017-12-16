@@ -4,12 +4,15 @@ package com.emcreations.tintvision.activity;
 import com.emcreations.tintvision.R;
 import com.emcreations.tintvision.service.OverlayService;
 import com.emcreations.tintvision.util.CustomFont;
+import com.emcreations.tintvision.util.PermissionManager;
 import com.flask.colorpicker.ColorPickerView;
 import com.flask.colorpicker.OnColorSelectedListener;
 import com.flask.colorpicker.builder.ColorPickerClickListener;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 // -- End of reference --
 import com.emcreations.tintvision.util.Settings;
+
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -31,7 +34,7 @@ import android.widget.TextView;
 /**
  * Overlay Settings activity for TintVision, handles the settings for the overlay
  *
- * @author Edward McKnight (EM-Creations.co.uk) - UP608985
+ * @author Edward McKnight (EM-Creations.co.uk)
  * @see OverlayService
  * @see UnderlinerSettingsActivity
  * @since 2017
@@ -45,6 +48,7 @@ public class OverlaySettingsActivity extends Activity {
     private CompoundButton btnToggle;
 	private boolean alertActive = false;
 	private String readingTestURL = "http://www.em-creations.co.uk/apps/readingtest.html";
+	private PermissionManager permissionManager;
 
 	/**
 	 * On create method, which is run when the activity is first started
@@ -55,6 +59,7 @@ public class OverlaySettingsActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_overlay_settings);
+		permissionManager = new PermissionManager(this);
 
 		// Restore settings
 		settings = getSharedPreferences(Settings.SETTINGS_NAME, 0);
@@ -127,9 +132,14 @@ public class OverlaySettingsActivity extends Activity {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) { // If the toggle has been changed
 				if (btnToggle.isChecked()) { // If the toggle is now checked
-					editor.putBoolean("overlayOn", true);
-					startService(new Intent(getApplicationContext(), OverlayService.class)); // Start the overlay
-                    readingTestCheck();
+					permissionManager.checkDrawOverPermission();
+					if (permissionManager.canDrawOverlays()) { // If we can draw overlays
+						editor.putBoolean("overlayOn", true);
+						startService(new Intent(getApplicationContext(), OverlayService.class)); // Start the overlay
+						readingTestCheck();
+					} else { // If we can't draw overlays
+						btnToggle.setChecked(false);
+					}
 				} else { // If the toggle is now unchecked
 					editor.putBoolean("overlayOn", false);
 					stopService(new Intent(getApplicationContext(), OverlayService.class)); // Stop the overlay
@@ -222,4 +232,16 @@ public class OverlaySettingsActivity extends Activity {
             alertDialog.show();
         }
     }
+
+	/**
+	 * Call back for activity result
+	 *
+	 * @param requestCode int
+	 * @param resultCode int
+	 * @param data Intent
+	 */
+	@TargetApi(23)
+	protected void onActivityResult(int requestCode, int resultCode,  Intent data) {
+		permissionManager.handleActivityResult(requestCode, resultCode, data);
+	}
 }

@@ -1,6 +1,7 @@
 package com.emcreations.tintvision.service;
 
 import com.emcreations.tintvision.activity.OverlaySettingsActivity;
+import com.emcreations.tintvision.util.PermissionManager;
 import com.emcreations.tintvision.util.Settings;
 import android.app.Service;
 import android.content.Intent;
@@ -15,7 +16,7 @@ import android.view.WindowManager;
 /**
  * Overlay service for TintVision, handles the creation and destruction of the overlay
  * 
- * @author Edward McKnight (EM-Creations.co.uk) - UP608985
+ * @author Edward McKnight (EM-Creations.co.uk)
  * @see OverlaySettingsActivity
  * @see UnderlinerService
  * @since 2017
@@ -25,6 +26,7 @@ public class OverlayService extends Service {
 	private WindowManager windowManager;
 	private View filter;
 	private SharedPreferences settings;
+	private PermissionManager permissionManager;
 
 	/**
 	 * onBind
@@ -43,11 +45,12 @@ public class OverlayService extends Service {
 	 */
 	@Override public void onCreate() {
 		super.onCreate();
+		permissionManager = new PermissionManager(this);
 
 		// Restore settings
 		settings = getSharedPreferences(Settings.SETTINGS_NAME, 0);
 
-		if (settings.getBoolean("canDrawOverlays", false)) { // If we have permission
+		if (permissionManager.canDrawOverlays()) { // If we have permission
 			windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
 
 			int alpha = settings.getInt("overlayOpacity", 80); // Create alpha variable

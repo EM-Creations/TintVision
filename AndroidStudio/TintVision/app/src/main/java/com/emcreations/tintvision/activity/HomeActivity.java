@@ -1,29 +1,26 @@
 package com.emcreations.tintvision.activity;
 
-import com.emcreations.tintvision.R;
-import com.emcreations.tintvision.activity.OverlaySettingsActivity;
-import com.emcreations.tintvision.activity.UnderlinerSettingsActivity;
-import com.emcreations.tintvision.service.OverlayService;
-import com.emcreations.tintvision.service.UnderlinerService;
-import com.emcreations.tintvision.util.Settings;
-import com.emcreations.tintvision.util.CustomFont;
-
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.emcreations.tintvision.R;
+import com.emcreations.tintvision.service.OverlayService;
+import com.emcreations.tintvision.service.UnderlinerService;
+import com.emcreations.tintvision.util.CustomFont;
+import com.emcreations.tintvision.util.PermissionManager;
+import com.emcreations.tintvision.util.Settings;
+
 /**
  * Home activity (startup) for TintVision
  * 
- * @author Edward McKnight (EM-Creations.co.uk) - UP608985
+ * @author Edward McKnight (EM-Creations.co.uk)
  * @see Settings
  * @since 2017
  * @version 1.0
@@ -31,7 +28,7 @@ import android.widget.TextView;
 public class HomeActivity extends Activity {
 	private SharedPreferences settings;
 	private SharedPreferences.Editor editor;
-	private final static int REQUEST_CODE = 333;
+	private PermissionManager permissionManager;
 
 	// TODO: Make TintVision work on API greater than 26 (problem with creating window 2006 with current system)
 	/**
@@ -43,6 +40,7 @@ public class HomeActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
+		permissionManager = new PermissionManager(this); // Instantiate a permission manager object
 
 		// Restore settings
 		settings = getSharedPreferences(Settings.SETTINGS_NAME, 0);
@@ -82,51 +80,18 @@ public class HomeActivity extends Activity {
 			}
 		});
 
-		if (Build.VERSION.SDK_INT >= 23) { // If API 23 or above, we need to ask for permission
-			checkDrawOverlayPermission();
-		} else { // Otherwise, we'd already have permission due to tbe AndroidManifest
-			editor.putBoolean("canDrawOverlays", true);
-			editor.apply();
-		}
+		permissionManager.checkDrawOverPermission();
 	}
 
 	/**
-	 * Check whether we have permission to draw overlays
-	 */
-	@TargetApi(23)
-	private void checkDrawOverlayPermission() {
-		if (!android.provider.Settings.canDrawOverlays(getApplicationContext())) { // If we don't have permission to draw overlays
-			Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-					Uri.parse("package:" + getPackageName()));
-			startActivityForResult(intent, REQUEST_CODE); // Request permission
-		} else {
-			setCanDrawOverlay(true);
-		}
-	}
-
-	/**
-	 * Call back after asking for permission to draw overlays
+	 * Call back for activity result
 	 *
 	 * @param requestCode int
 	 * @param resultCode int
 	 * @param data Intent
 	 */
 	@TargetApi(23)
-	@Override
 	protected void onActivityResult(int requestCode, int resultCode,  Intent data) {
-		if (requestCode == REQUEST_CODE) { // Request codes match
-			setCanDrawOverlay(android.provider.Settings.canDrawOverlays(getApplicationContext()));
-		}
+		permissionManager.handleActivityResult(requestCode, resultCode, data);
 	}
-
-	/**
-	 * Set whether or not the overlays can be drawn
-	 *
-	 * @param b Boolean
-	 */
-	private void setCanDrawOverlay(boolean b) {
-		editor.putBoolean("canDrawOverlays", b);
-		editor.apply();
-	}
-
 }

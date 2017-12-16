@@ -6,7 +6,7 @@ import android.graphics.Typeface;
 /**
  * CustomFont static class
  *
- * @author Edward McKnight (EM-Creations.co.uk) - UP608985
+ * @author Edward McKnight (EM-Creations.co.uk)
  * @since 2017
  * @version 1.0
  */

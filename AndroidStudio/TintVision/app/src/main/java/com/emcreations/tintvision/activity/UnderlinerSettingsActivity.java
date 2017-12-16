@@ -4,12 +4,15 @@ package com.emcreations.tintvision.activity;
 import com.emcreations.tintvision.R;
 import com.emcreations.tintvision.service.UnderlinerService;
 import com.emcreations.tintvision.util.CustomFont;
+import com.emcreations.tintvision.util.PermissionManager;
 import com.flask.colorpicker.ColorPickerView;
 import com.flask.colorpicker.OnColorSelectedListener;
 import com.flask.colorpicker.builder.ColorPickerClickListener;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 // -- End of reference --
 import com.emcreations.tintvision.util.Settings;
+
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -29,7 +32,7 @@ import android.widget.TextView;
 /**
  * Underliner settings activity for TintVision, handles the settings for the underliner tool
  * 
- * @author Edward McKnight (EM-Creations.co.uk) - UP608985
+ * @author Edward McKnight (EM-Creations.co.uk)
  * @see UnderlinerService
  * @see OverlaySettingsActivity
  * @since 2017
@@ -38,6 +41,7 @@ import android.widget.TextView;
 public class UnderlinerSettingsActivity extends Activity {
 	private SharedPreferences settings;
 	private SharedPreferences.Editor editor;
+	private PermissionManager permissionManager;
 
 	/**
 	 * On create method, which is run when the activity is first started
@@ -48,6 +52,7 @@ public class UnderlinerSettingsActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_underliner_settings);
+		permissionManager = new PermissionManager(this);
 
 		// Restore settings
 		settings = getSharedPreferences(Settings.SETTINGS_NAME, 0);
@@ -121,8 +126,13 @@ public class UnderlinerSettingsActivity extends Activity {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) { // If the toggle has been changed
 				if (btnToggle.isChecked()) { // If the toggle is now checked
-					editor.putBoolean("underlinerOn", true);
-					startService(new Intent(getApplicationContext(), UnderlinerService.class)); // Start the underliner
+					permissionManager.checkDrawOverPermission();
+					if (permissionManager.canDrawOverlays()) { // If we can draw overlays
+						editor.putBoolean("underlinerOn", true);
+						startService(new Intent(getApplicationContext(), UnderlinerService.class)); // Start the underliner
+					} else { // If we can't draw overlays
+						btnToggle.setChecked(false);
+					}
 				} else { // If the toggle is now unchecked
 					editor.putBoolean("underlinerOn", false);
 					stopService(new Intent(getApplicationContext(), UnderlinerService.class)); // Stop the underliner
@@ -204,5 +214,17 @@ public class UnderlinerSettingsActivity extends Activity {
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		return id == R.id.action_settings || super.onOptionsItemSelected(item);
+	}
+
+	/**
+	 * Call back for activity result
+	 *
+	 * @param requestCode int
+	 * @param resultCode int
+	 * @param data Intent
+	 */
+	@TargetApi(23)
+	protected void onActivityResult(int requestCode, int resultCode,  Intent data) {
+		permissionManager.handleActivityResult(requestCode, resultCode, data);
 	}
 }

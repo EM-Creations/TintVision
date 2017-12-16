@@ -13,12 +13,13 @@ import android.view.View.OnTouchListener;
 import android.view.WindowManager;
 
 import com.emcreations.tintvision.activity.UnderlinerSettingsActivity;
+import com.emcreations.tintvision.util.PermissionManager;
 import com.emcreations.tintvision.util.Settings;
 
 /**
  * Underliner service for TintVision, handles the creation, destruction and movement of the underliner tool
  * 
- * @author Edward McKnight (EM-Creations.co.uk) - UP608985
+ * @author Edward McKnight (EM-Creations.co.uk)
  * @see OverlayService
  * @see UnderlinerSettingsActivity
  * @since 2017
@@ -31,6 +32,7 @@ public class UnderlinerService extends Service implements OnTouchListener {
 	private float lastTouchX, lastTouchY, dX, dY;
 	private int activePointer;
 	private SharedPreferences settings;
+	private PermissionManager permissionManager;
 
     /**
      * onBind
@@ -48,11 +50,12 @@ public class UnderlinerService extends Service implements OnTouchListener {
      */
 	@Override public void onCreate() {
 		super.onCreate();
+        permissionManager = new PermissionManager(this);
 
 		// Restore settings
 		settings = getSharedPreferences(Settings.SETTINGS_NAME, 0);
 
-        if (settings.getBoolean("canDrawOverlays", false)) { // If we have permission
+        if (permissionManager.canDrawOverlays()) { // If we have permission
             windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
 
             underliner = new View(this); // Create a new view
