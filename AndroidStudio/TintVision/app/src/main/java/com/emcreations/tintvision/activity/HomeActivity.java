@@ -27,10 +27,9 @@ import com.emcreations.tintvision.util.Settings;
  */
 public class HomeActivity extends Activity {
 	private SharedPreferences settings;
-	private SharedPreferences.Editor editor;
 	private PermissionManager permissionManager;
 
-	// TODO: Make TintVision work on API greater than 26 (problem with creating window 2006 with current system)
+	// TODO: Make TintVision work on API greater than 26 (problem with creating window 2006 with current system) - Investigate TYPE_ACCESSIBILITY_OVERLAY
 	/**
 	 * On create method, which is run when the activity is first started
 	 *
@@ -44,7 +43,6 @@ public class HomeActivity extends Activity {
 
 		// Restore settings
 		settings = getSharedPreferences(Settings.SETTINGS_NAME, 0);
-		editor = settings.edit();
 
 		// Controls
 		final Button btnOverlaySettings = (Button) findViewById(R.id.osButton);

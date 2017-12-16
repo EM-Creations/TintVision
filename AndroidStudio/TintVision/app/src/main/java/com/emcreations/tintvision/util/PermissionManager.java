@@ -16,11 +16,11 @@ import android.os.Build;
  * @version 1.2
  */
 public class PermissionManager {
-    private Activity activity;
-    private Service service;
+    private final Activity activity;
+    private final Service service;
     private final static int OVERLAY_REQUEST_CODE = 333;
-    private SharedPreferences settings;
-    private SharedPreferences.Editor editor;
+    private final SharedPreferences settings;
+    private final SharedPreferences.Editor editor;
 
     /**
      * Constructor
@@ -43,7 +43,7 @@ public class PermissionManager {
     /**
      * Constructor
      */
-    public PermissionManager(Activity activity, Service service) {
+    private PermissionManager(Activity activity, Service service) {
         this.activity = activity;
         this.service = service;
 
@@ -86,7 +86,7 @@ public class PermissionManager {
      */
     @TargetApi(23)
     public void handleActivityResult(int requestCode, int resultCode,  Intent data) {
-        if (requestCode == this.OVERLAY_REQUEST_CODE) { // Request codes match
+        if (requestCode == OVERLAY_REQUEST_CODE) { // Request codes match
             this.setCanDrawOverlay(android.provider.Settings.canDrawOverlays(this.activity.getApplicationContext()));
         }
     }
@@ -99,7 +99,7 @@ public class PermissionManager {
         if (!android.provider.Settings.canDrawOverlays(this.activity.getApplicationContext())) { // If we don't have permission to draw overlays
             Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
                     Uri.parse("package:" + this.activity.getApplicationContext().getPackageName()));
-            this.activity.startActivityForResult(intent, this.OVERLAY_REQUEST_CODE); // Request permission
+            this.activity.startActivityForResult(intent, OVERLAY_REQUEST_CODE); // Request permission
         } else {
             this.setCanDrawOverlay(true);
         }

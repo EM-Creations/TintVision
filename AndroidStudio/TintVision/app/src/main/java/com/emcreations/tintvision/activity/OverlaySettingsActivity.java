@@ -47,7 +47,7 @@ public class OverlaySettingsActivity extends Activity {
     private String oldColour;
     private CompoundButton btnToggle;
 	private boolean alertActive = false;
-	private String readingTestURL = "http://www.em-creations.co.uk/apps/readingtest.html";
+	private final String readingTestURL = "http://www.em-creations.co.uk/apps/readingtest.html";
 	private PermissionManager permissionManager;
 
 	/**
